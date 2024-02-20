@@ -1,0 +1,39 @@
+<style>
+  main {
+    width: 100%;
+    min-height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding: 1rem;
+    box-sizing: inherit;
+    position: relative;
+  }
+</style>
+
+<main class="main" [formGroup]="questionsForm">
+  <form method="POST" formGroupName="questions">
+    <div>
+      @for (question of questions; track question.id; let i = $index) {
+      <h3 class="text-2xl font-bold my-4">{{ question.question }}</h3>
+      <ul class="list-style-none pl-4">
+        <li *ngFor="let answer of question.answers">
+          <div class="flex items-center space-x-2 mb-2">
+            <input (click)="setQuestions(question, answer, i)" [checked]="setCheckedAnswers(question, answer, i)"
+              type="radio" name="question{{ question.id }}" [value]="answer.value" class="form-radio w-4 h-4">
+            <span class="text-md">{{ answer.answer }}</span>
+          </div>
+        </li>
+      </ul>
+      }
+    </div>
+    <div>
+      <span class="text-md">Score?: {{messageScore}}</span>
+    </div>
+    <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" type="submit">Submit
+      Answers</button>
+  </form>
+</main>
+
+<router-outlet></router-outlet>
