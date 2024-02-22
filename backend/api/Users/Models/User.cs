@@ -4,6 +4,9 @@ using api.Shared;
 namespace api.Users.Models;
 public class User : Entity
 {
+    public User()
+    {
+    }
     public string FullName { get; set; } = string.Empty;
     public string Email { get; set; } = string.Empty;
     [JsonIgnore]
