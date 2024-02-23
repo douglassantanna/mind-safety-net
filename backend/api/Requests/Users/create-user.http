@@ -1,0 +1,12 @@
+@url = http://localhost:5234/api/users
+
+POST {{url}}/create
+Content-Type: application/json
+# Authorization: Bearer {{token}}
+
+{
+    "fullName":"Douglas Sant'Anna",
+    "email":"douglbb1gmail.com",
+    "password": "string",
+    "role":1
+}
