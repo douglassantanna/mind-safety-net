@@ -1,4 +1,7 @@
 using System.Reflection;
+using api.Authentication;
+using api.Authentication.DependencyInjection;
+using api.Authentication.Services;
 using api.Data;
 using api.Shared;
 using api.Users;
@@ -11,9 +14,11 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
-
 builder.Services.AddScoped<IEncryptService, EncryptService>();
 builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<IAuthenticationService, AuthenticationService>();
+builder.Services.AddTokenService(builder.Configuration);
+builder.Services.AddAuthorization();
 
 builder.Services.AddDbContext<DataContext>(options =>
 {
@@ -23,6 +28,9 @@ builder.Services.AddDbContext<DataContext>(options =>
 var app = builder.Build();
 
 app.MapUsers();
+
+app.MapAuthentication();
+
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
@@ -30,5 +38,9 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseAuthentication();
+
+app.UseAuthorization();
 
 app.Run();

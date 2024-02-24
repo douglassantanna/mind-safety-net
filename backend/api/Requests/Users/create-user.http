@@ -5,8 +5,8 @@ Content-Type: application/json
 # Authorization: Bearer {{token}}
 
 {
-    "fullName":"Douglas Sant'Anna",
-    "email":"douglbb1gmail.com",
-    "password": "string",
-    "role":1
+    "fullName":"John Doe",
+    "email":"johndoe@gmail.com",
+    "password": "123456",
+    "role":2
 }
