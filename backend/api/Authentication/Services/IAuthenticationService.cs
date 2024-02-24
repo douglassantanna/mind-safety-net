@@ -30,11 +30,11 @@ public class AuthenticationService(DataContext context,
 
         var user = await _context.Users.Where(u => u.Email == request.Email).FirstOrDefaultAsync(default);
         if (user is null)
-            return new Response("User not found", false);
+            return new Response("User not found", false, 404);
 
         bool matchPassword = _encryptService.IsPasswordValid(user.Password, request.Password);
         if (!matchPassword)
-            return new Response("Password is incorrect", false);
+            return new Response("Password is incorrect", false, 401);
 
         var token = _tokenService.GenerateToken(user);
         return new Response("", true, new { token });

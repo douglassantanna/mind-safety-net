@@ -16,7 +16,13 @@ public static class AuthenticationApi
         {
             var response = await authenticationService.LoginAsync(request);
             if (!response.Success)
-                return Results.BadRequest(response.Data);
+            {
+                return response.Data switch
+                {
+                    401 => Results.Unauthorized(),
+                    _ => Results.NotFound(),
+                };
+            }
             return Results.Ok(response.Data);
         });
         return group;
