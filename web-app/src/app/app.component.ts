@@ -4,6 +4,7 @@ import { RouterOutlet } from '@angular/router';
 import { Answer, Question, Score, myScores, questions } from './models/question';
 import { QuestionService } from './services/question.service';
 import { FormArray, FormBuilder, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { LoginComponent } from './pages/authentication/login/login.component';
 
 @Component({
   selector: 'app-root',
@@ -12,7 +13,8 @@ import { FormArray, FormBuilder, FormGroup, FormsModule, ReactiveFormsModule } f
     CommonModule,
     RouterOutlet,
     ReactiveFormsModule,
-    FormsModule],
+    FormsModule,
+    LoginComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })
