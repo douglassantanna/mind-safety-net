@@ -1,19 +1,21 @@
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AuthenticationService } from '../../../core/services/authentication.service';
 import { Router } from '@angular/router';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-login',
   standalone: true,
   imports: [
     FormsModule,
-    ReactiveFormsModule],
+    ReactiveFormsModule,
+    CommonModule],
   templateUrl: './login.component.html'
 })
 export class LoginComponent {
   loading = false;
-  loginForm!: FormGroup;
+  loginForm: FormGroup;
   errorMessage = '';
 
   constructor(
@@ -28,6 +30,7 @@ export class LoginComponent {
   }
 
   onSubmit() {
+
     this.loading = true;
     this.authService.login(this.emailFormControl?.value, this.passwordFormControl?.value).subscribe({
       next: () => {
@@ -43,9 +46,9 @@ export class LoginComponent {
   }
 
   get emailFormControl() {
-    return this.loginForm.get('email');
+    return this.loginForm.get('email') as FormControl;
   }
   get passwordFormControl() {
-    return this.loginForm.get('password');
+    return this.loginForm.get('password') as FormControl;
   }
 }
