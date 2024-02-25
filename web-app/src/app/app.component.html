@@ -12,6 +12,7 @@
   }
 </style>
 
+@if (false) {
 <main class="main" [formGroup]="questionsForm">
   <form method="POST" formGroupName="questions">
     <div>
@@ -35,5 +36,7 @@
       Answers</button>
   </form>
 </main>
+}
+<app-login />
 
 <router-outlet></router-outlet>
