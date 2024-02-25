@@ -5,6 +5,7 @@ import { Answer, Question, Score, myScores, questions } from './models/question'
 import { QuestionService } from './services/question.service';
 import { FormArray, FormBuilder, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { LoginComponent } from './pages/authentication/login/login.component';
+import { SideMenuComponent } from './components/side-menu/side-menu.component';
 
 @Component({
   selector: 'app-root',
@@ -14,7 +15,8 @@ import { LoginComponent } from './pages/authentication/login/login.component';
     RouterOutlet,
     ReactiveFormsModule,
     FormsModule,
-    LoginComponent],
+    LoginComponent,
+    SideMenuComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })
