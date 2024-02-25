@@ -6,6 +6,7 @@ import { QuestionService } from './services/question.service';
 import { FormArray, FormBuilder, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { LoginComponent } from './pages/authentication/login/login.component';
 import { SideMenuComponent } from './components/side-menu/side-menu.component';
+import { ListUsersComponent } from './pages/users/list-users/list-users.component';
 
 @Component({
   selector: 'app-root',
@@ -16,7 +17,8 @@ import { SideMenuComponent } from './components/side-menu/side-menu.component';
     ReactiveFormsModule,
     FormsModule,
     LoginComponent,
-    SideMenuComponent],
+    SideMenuComponent,
+    ListUsersComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })
