@@ -1,12 +1,15 @@
 import { Component } from '@angular/core';
 import { User } from '../../../core/models/user';
 import { CommonModule } from '@angular/common';
+import { RouterLink, RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'app-list-users',
   standalone: true,
   imports: [
-    CommonModule
+    CommonModule,
+    RouterOutlet,
+    RouterLink
   ],
   templateUrl: './list-users.component.html',
   styleUrl: './list-users.component.scss'

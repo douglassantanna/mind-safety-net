@@ -1,1 +1,35 @@
-<p>create works!</p>
+<form (ngSubmit)="onSubmit()" [formGroup]="userForm">
+  <h2>{{ title }}</h2>
+  <div class="mb-4">
+    <label for="fullName" class="block mb-2 text-sm font-medium text-gray-700">Fullname</label>
+    <input type="text" formControlName="fullName" id="fullName"
+      class="block w-full px-3 py-2 rounded-md border border-gray-300 focus:border-sky-500 focus:outline-none">
+    @if (fullNameFormControl.hasError('required')) {
+    <span class="text-sm text-red-500">Fullname is <strong>required</strong></span>
+    }
+  </div>
+  <div class="mb-4">
+    <label for="email" class="block mb-2 text-sm font-medium text-gray-700">Email</label>
+    <input type="email" formControlName="email" id="email"
+      class="block w-full px-3 py-2 rounded-md border border-gray-300 focus:border-sky-500 focus:outline-none">
+    @if (emailFormControl.hasError('email') && !emailFormControl.hasError('required')) {
+    <span class="text-sm text-red-500">Please enter a valid email address</span>
+    }
+    @if (emailFormControl.hasError('required')) {
+    <span class="text-sm text-red-500">Email is <strong>required</strong></span>
+    }
+  </div>
+  <div class="mb-6">
+    <label for="password" class="block mb-2 text-sm font-medium text-gray-700">Password</label>
+    <input type="password" minlength="4" id="password" formControlName="password"
+      class="block w-full px-3 py-2 rounded-md border border-gray-300 focus:border-sky-500 focus:outline-none">
+    @if (passwordFormControl.hasError('required')) {
+    <span class="text-sm text-red-500">Password is <strong>required</strong></span>
+    }
+    @if (passwordFormControl.hasError('minlength')) {
+    <span class="text-sm text-red-500">Password must have 4 characters or more</span>
+    }
+  </div>
+  <button type="submit"
+    class="mt-4 self-end py-2 px-4 bg-indigo-500 text-white rounded-md hover:bg-indigo-700">Save</button>
+</form>

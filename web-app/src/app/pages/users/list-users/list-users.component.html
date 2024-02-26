@@ -1,7 +1,8 @@
 <div class="flex flex-col">
   <div class="flex items-center justify-between mb-4 pr-2 pl-2">
-    <h2 class="text-xl font-bold mb-0">Users</h2> <button
-      class="mt-4 self-end py-2 px-4 bg-blue-500 text-white rounded-md hover:bg-blue-700">New User</button>
+    <h2 class="text-xl font-bold mb-0">Users</h2>
+    <a routerLink="/users/create"
+      class="mt-4 self-end py-2 px-4 bg-indigo-500 text-white rounded-md hover:bg-indigo-700">New User</a>
   </div>
 
   <table class="table-fixed w-full border border-gray-200">
@@ -18,7 +19,8 @@
         <td class="px-4 py-2">{{ user.name }}</td>
         <td class="px-4 py-2">{{ user.email }}</td>
         <td class="px-4 py-2">
-          <button (click)="selectUser($index)" class="text-blue-500 hover:underline">Details</button>
+          <a routerLink="/users/{{ $index }}/edit"
+            class="hover:bg-indigo-700 px-4 py-2 rounded-md text-white font-medium bg-indigo-500">Edit User</a>
         </td>
       </tr>
       }
