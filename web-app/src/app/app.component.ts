@@ -7,6 +7,7 @@ import { FormArray, FormBuilder, FormGroup, FormsModule, ReactiveFormsModule } f
 import { LoginComponent } from './pages/authentication/login/login.component';
 import { SideMenuComponent } from './components/side-menu/side-menu.component';
 import { ListUsersComponent } from './pages/users/list-users/list-users.component';
+import { AuthenticationService } from './core/services/authentication.service';
 
 @Component({
   selector: 'app-root',
@@ -29,6 +30,7 @@ export class AppComponent {
   messageScore = '';
   questionsForm: FormGroup = {} as FormGroup;
   constructor(
+    public authService: AuthenticationService,
     private questionService: QuestionService,
     private fb: FormBuilder) {
     this.questionsForm = this.fb.group({
