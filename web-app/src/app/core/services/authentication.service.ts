@@ -35,7 +35,7 @@ export class AuthenticationService {
     );
   }
 
-  private get token(): string | null {
+  private get token(): string {
     return this.localStorageService.getToken();
   }
 }

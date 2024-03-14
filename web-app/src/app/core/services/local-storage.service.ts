@@ -19,10 +19,15 @@ export class LocalStorageService {
     this.appConfig.jwtToken = token;
     this.set(local_storage_token, JSON.stringify(this.appConfig));
   }
-  getToken(): string | null {
+  getToken(): string {
     const storedConfig = this.get(local_storage_token);
-    this.appConfig = storedConfig ? JSON.parse(storedConfig) : this.setToken("");
-    return this.appConfig.jwtToken;
+    try {
+      this.appConfig = storedConfig ? JSON.parse(storedConfig) : {};
+      return this.appConfig.jwtToken || '';
+    } catch (error) {
+      console.error('Error parsing stored config:', error);
+      return '';
+    }
   }
   removeToken() {
     const storedConfig = this.get(local_storage_token);
