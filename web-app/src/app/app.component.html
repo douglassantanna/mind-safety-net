@@ -38,25 +38,12 @@
 </main>
 } -->
 
-
-<div class="flex flex-col sm:flex-row"> <!-- flex-col for mobile, flex-row for larger screens -->
-  <ng-container *ngIf="(authService.isLoggedIn | async); else unauthorized">
-    <div class="sm:w-1/5"> <!-- Adjust width as needed for your side menu -->
-      <div>
-        <app-side-menu></app-side-menu>
-      </div>
-    </div>
-    <div class="sm:w-4/5"> <!-- Adjust width as needed for your content -->
-      <div>
-        <router-outlet></router-outlet>
-      </div>
-    </div>
-  </ng-container>
-</div>
-
-
-<div>
-  <ng-template #unauthorized>
+<ng-container *ngIf="(authService.isLoggedIn | async); else unauthorized">
+  <app-nav>
     <router-outlet></router-outlet>
-  </ng-template>
-</div>
+  </app-nav>
+</ng-container>
+
+<ng-template #unauthorized>
+  <router-outlet></router-outlet>
+</ng-template>

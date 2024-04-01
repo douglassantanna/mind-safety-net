@@ -1,29 +1,48 @@
-<div class="flex flex-col">
-  <div class="flex items-center justify-between mb-4 pr-2 pl-2">
-    <h2 class="text-xl font-bold mb-0">Users</h2>
-    <a routerLink="/users/create"
-      class="mt-4 self-end py-2 px-4 bg-indigo-500 text-white rounded-md hover:bg-indigo-700">New User</a>
-  </div>
+<section>
+  <header>
+    <h2>Users</h2>
+    <a mat-raised-button color="primary" routerLink="/users/create">New User</a>
+  </header>
 
-  <table class="table-fixed w-full border border-gray-200">
-    <thead>
-      <tr class="bg-gray-100 text-left text-sm font-medium">
-        <th class="px-4 py-2">Name</th>
-        <th class="px-4 py-2">Email</th>
-        <th class="px-4 py-2">Actions</th>
-      </tr>
-    </thead>
-    <tbody>
-      @for (user of users; track $index) {
-      <tr class="hover:bg-gray-200">
-        <td class="px-4 py-2">{{ user.name }}</td>
-        <td class="px-4 py-2">{{ user.email }}</td>
-        <td class="px-4 py-2">
-          <a routerLink="/users/{{ $index }}/edit"
-            class="hover:bg-indigo-700 px-4 py-2 rounded-md text-white font-medium bg-indigo-500">Edit User</a>
-        </td>
-      </tr>
-      }
-    </tbody>
+  <table mat-table [dataSource]="users" class="mat-elevation-z1">
+
+    <ng-container matColumnDef="name" sticky>
+      <th mat-header-cell *matHeaderCellDef>Name</th>
+      <td mat-cell *matCellDef="let element"> {{element.name }} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="email">
+      <th mat-header-cell *matHeaderCellDef>Email</th>
+      <td mat-cell *matCellDef="let element"> {{element.email }} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="role">
+      <th mat-header-cell *matHeaderCellDef>Role</th>
+      <td mat-cell *matCellDef="let element"> {{element.role == 1 ? 'Admin' : 'Manager' }} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="actions">
+      <th mat-header-cell *matHeaderCellDef>Actions</th>
+      <td mat-cell *matCellDef="let element">
+        <a mat-icon-button routerLink="/users/{{ element.id }}/edit">
+          <mat-icon>edit</mat-icon>
+        </a>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
   </table>
-</div>
+</section>
+
+<style>
+  section {
+    padding: 10px;
+  }
+
+  header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+</style>

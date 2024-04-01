@@ -5,9 +5,9 @@ import { Answer, Question, Score, myScores, questions } from './models/question'
 import { QuestionService } from './services/question.service';
 import { FormArray, FormBuilder, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { LoginComponent } from './pages/authentication/login/login.component';
-import { SideMenuComponent } from './components/side-menu/side-menu.component';
 import { ListUsersComponent } from './pages/users/list-users/list-users.component';
 import { AuthenticationService } from './core/services/authentication.service';
+import { NavComponent } from './layout/nav/nav.component';
 
 @Component({
   selector: 'app-root',
@@ -18,8 +18,8 @@ import { AuthenticationService } from './core/services/authentication.service';
     ReactiveFormsModule,
     FormsModule,
     LoginComponent,
-    SideMenuComponent,
-    ListUsersComponent],
+    ListUsersComponent,
+    NavComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })

@@ -2,6 +2,9 @@ import { Component } from '@angular/core';
 import { User } from '../../../core/models/user';
 import { CommonModule } from '@angular/common';
 import { RouterLink, RouterOutlet } from '@angular/router';
+import { MatTableModule } from '@angular/material/table';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-list-users',
@@ -9,17 +12,20 @@ import { RouterLink, RouterOutlet } from '@angular/router';
   imports: [
     CommonModule,
     RouterOutlet,
-    RouterLink
+    RouterLink,
+    MatTableModule,
+    MatButtonModule,
+    MatIconModule
   ],
   templateUrl: './list-users.component.html',
-  styleUrl: './list-users.component.scss'
 })
 export class ListUsersComponent {
   users: User[] = [
-    { name: 'John Doe', email: 'john.doe@example.com' },
-    { name: 'Jane Smith', email: 'jane.smith@example.com' },
-    { name: 'Alice Johnson', email: 'alice.johnson@example.com' },
+    { id: 1, name: 'John Doe', email: 'john.doe@example.com', role: 1 },
+    { id: 2, name: 'Jane Smith', email: 'jane.smith@example.com', role: 2 },
+    { id: 3, name: 'Alice Johnson', email: 'alice.johnson@example.com', role: 1 },
   ];
+  displayedColumns: string[] = ['name', 'email', 'role', 'actions'];
   selectedUserId: number | null = null;
 
   constructor() { }
