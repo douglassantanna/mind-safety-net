@@ -11,14 +11,14 @@ public interface IAuthenticationService
 }
 public class AuthenticationService(DataContext context,
                                    ITokenService tokenService,
-                                   IEncryptService encryptService,
+                                   IPasswordHelper passwordHelper,
                                    IValidator<LoginRequest> validator) : IAuthenticationService
 {
     private readonly DataContext _context = context;
     private readonly ITokenService _tokenService = tokenService;
     private readonly IValidator<LoginRequest> _validator = validator;
 
-    private readonly IEncryptService _encryptService = encryptService;
+    private readonly IPasswordHelper _passwordHelper = passwordHelper;
     public async Task<Response> LoginAsync(LoginRequest request)
     {
         var validationResult = await _validator.ValidateAsync(request);
@@ -32,7 +32,7 @@ public class AuthenticationService(DataContext context,
         if (user is null)
             return new Response("User not found", false, 404);
 
-        bool matchPassword = _encryptService.IsPasswordValid(user.Password, request.Password);
+        bool matchPassword = _passwordHelper.VerifyPassword(user.Password, request.Password);
         if (!matchPassword)
             return new Response("Password is incorrect", false, 401);
 

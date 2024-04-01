@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterOutlet } from '@angular/router';
-import { Answer, Question, Score, myScores, questions } from './models/question';
+import { Answer, Question, Score, myScores, questions } from './core/models/question';
 import { QuestionService } from './services/question.service';
 import { FormArray, FormBuilder, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { LoginComponent } from './pages/authentication/login/login.component';

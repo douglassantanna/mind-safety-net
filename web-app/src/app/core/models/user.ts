@@ -1,5 +1,13 @@
 export interface User {
-  name: string;
+  fullName: string;
+  active: boolean;
+  role: Role;
+  email: string;
+  id: number;
+}
+
+export interface ViewUser {
+  fullName: string;
   active: boolean;
   role: Role;
   email: string;
@@ -7,11 +15,11 @@ export interface User {
 }
 
 export interface NewUser {
-  name: string;
-  active: boolean;
-  role: Role;
+  fullName: string;
   email: string;
-  password: string;
+  role: Role;
+  active: boolean;
+  id?: number;
 }
 
 export enum Role {

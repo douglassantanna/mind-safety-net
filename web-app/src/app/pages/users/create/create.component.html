@@ -19,6 +19,18 @@
       }
     </mat-form-field>
 
+    <mat-form-field appearance="outline">
+      <mat-label>Role</mat-label>
+      <mat-select formControlName="role" [(value)]="roleFormControl.value">
+        @for (role of roles; track role) {
+        <mat-option [value]="role.id">{{role.description}}</mat-option>
+        }
+      </mat-select>
+      @if (roleFormControl.hasError('required')) {
+      <mat-error>Role is <strong>required</strong></mat-error>
+      }
+    </mat-form-field>
+
     <ng-container>
       @if (userToEdit) {
       <mat-slide-toggle [checked]="activeFormControl?.value" formControlName="active">
