@@ -1,5 +1,6 @@
 export interface User {
   name: string;
+  active: boolean;
   role: Role;
   email: string;
   id: number;
@@ -7,6 +8,7 @@ export interface User {
 
 export interface NewUser {
   name: string;
+  active: boolean;
   role: Role;
   email: string;
   password: string;
