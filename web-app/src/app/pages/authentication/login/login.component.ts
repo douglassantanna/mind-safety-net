@@ -3,6 +3,7 @@ import { FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, 
 import { AuthenticationService } from '../../../core/services/authentication.service';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { SubmitButtonComponent } from '../../../layout/submit-button/submit-button.component';
 
 @Component({
   selector: 'app-login',
@@ -10,7 +11,8 @@ import { CommonModule } from '@angular/common';
   imports: [
     FormsModule,
     ReactiveFormsModule,
-    CommonModule],
+    CommonModule,
+    SubmitButtonComponent],
   templateUrl: './login.component.html'
 })
 export class LoginComponent {
@@ -29,7 +31,7 @@ export class LoginComponent {
     });
   }
 
-  onSubmit() {
+  submitLogin() {
 
     this.loading = true;
     this.authService.login(this.emailFormControl?.value, this.passwordFormControl?.value).subscribe({

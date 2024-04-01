@@ -5,6 +5,7 @@ import { CustomResponse } from '../models/response';
 import { BehaviorSubject, Observable, tap } from 'rxjs';
 import { environment } from '../../../environments/environment.development';
 import { LocalStorageService } from './local-storage.service';
+import { Router } from '@angular/router';
 const url = `${environment.apiUrl}/authentication`;
 
 @Injectable({
@@ -15,6 +16,7 @@ export class AuthenticationService {
   isLoggedIn = this.isLoggedIn$.asObservable();
   constructor(
     private http: HttpClient,
+    private router: Router,
     private localStorageService: LocalStorageService
   ) {
     if (this.token)
@@ -33,6 +35,12 @@ export class AuthenticationService {
         this.localStorageService.setToken(token);
       })
     );
+  }
+
+  logout(): void {
+    this.localStorageService.removeToken();
+    this.isLoggedIn$.next(false);
+    this.router.navigateByUrl('login');
   }
 
   private get token(): string {

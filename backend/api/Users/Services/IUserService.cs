@@ -34,11 +34,13 @@ public class UserService(DataContext context,
 
         var randomPassword = _passwordHelper.RandomPassword();
 
+        var encryptedPassword = _passwordHelper.EncryptPassword(randomPassword);
+
         var user = new User
         {
             FullName = request.FullName,
             Email = request.Email,
-            Password = randomPassword,
+            Password = encryptedPassword,
             Role = request.Role,
             Active = request.Active
         };

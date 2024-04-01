@@ -32,7 +32,7 @@ public class AuthenticationService(DataContext context,
         if (user is null)
             return new Response("User not found", false, 404);
 
-        bool matchPassword = _passwordHelper.VerifyPassword(user.Password, request.Password);
+        bool matchPassword = _passwordHelper.VerifyPassword(request.Password, user.Password);
         if (!matchPassword)
             return new Response("Password is incorrect", false, 401);
 

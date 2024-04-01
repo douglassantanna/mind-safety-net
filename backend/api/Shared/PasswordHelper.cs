@@ -22,12 +22,13 @@ public class PasswordHelper : IPasswordHelper
     }
     public string RandomPassword()
     {
-        var passwordBuilder = new StringBuilder();
+        // var passwordBuilder = new StringBuilder();
 
-        passwordBuilder.Append(RandomString(4, true));
+        // passwordBuilder.Append(RandomString(4, true));
 
-        passwordBuilder.Append(RandomString(2));
-        return passwordBuilder.ToString();
+        // passwordBuilder.Append(RandomString(2));
+        string fakePassword = "123456";
+        return fakePassword;
     }
     private string RandomString(int size, bool lowerCase = false)
     {

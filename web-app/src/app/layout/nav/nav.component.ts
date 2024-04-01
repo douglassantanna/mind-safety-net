@@ -9,6 +9,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { Observable } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
 import { RouterModule } from '@angular/router';
+import { AuthenticationService } from '../../core/services/authentication.service';
 
 @Component({
   selector: 'app-nav',
@@ -27,10 +28,15 @@ import { RouterModule } from '@angular/router';
 })
 export class NavComponent {
   private breakpointObserver = inject(BreakpointObserver);
+  private authService = inject(AuthenticationService);
 
   isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
     .pipe(
       map(result => result.matches),
       shareReplay()
     );
+
+  logout() {
+    this.authService.logout();
+  }
 }

@@ -49,7 +49,7 @@ export class ListUsersComponent {
   private loadUsers() {
     this.userService.list().subscribe(({
       next: (users) => {
-        this.users = users
+        this.users = users;
       },
       error: (err) => {
       }
