@@ -1,0 +1,68 @@
+<header>
+  <h1>Welcome to <strong>Mind Safety Net</strong></h1>
+  <h3>Please, fill the form below so we can help you!</h3>
+</header>
+<main class="main" [formGroup]="questionsForm">
+  <form method="POST" formGroupName="questions">
+    @for (question of questions; track question.id; let i = $index) {
+    <div class="card">
+      <h3>{{ question.question }}</h3>
+      <ul class="answers-list">
+        @for (answer of question.answers; track $index) {
+        <li class="answer-item">
+          <input class="answer-input" (click)="setQuestions(question, answer, i)"
+            [checked]="setCheckedAnswers(question, answer, i)" type="radio" name="question{{ question.id }}"
+            [value]="answer.value">
+          <span class="answer-text">{{ answer.answer }}</span>
+        </li>
+        }
+      </ul>
+    </div>
+    }
+    <app-submit-button [text]="'Submit Answers'" [loading]="!loading"
+      [disabled]="questionsForm.invalid"></app-submit-button>
+  </form>
+</main>
+
+<style>
+  header {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    justify-content: center;
+    align-items: center;
+  }
+
+  form {
+    display: flex;
+    gap: 5px;
+    flex-direction: column;
+    padding: 10px;
+  }
+
+  .card {
+    background-color: #ffffff;
+    border: 1px solid #cccccc;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+  }
+
+  .answers-list {
+    list-style-type: none;
+    padding: 0;
+  }
+
+  .answer-item {
+    margin-bottom: 10px;
+  }
+
+  .answer-input {
+    margin-right: 10px;
+  }
+
+  .answer-text {
+    font-size: 16px;
+    color: #333333;
+  }
+</style>
