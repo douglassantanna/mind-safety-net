@@ -1,4 +1,4 @@
-<style>
+<!-- <style>
   main {
     width: 100%;
     min-height: 100%;
@@ -36,12 +36,14 @@
       Answers</button>
   </form>
 </main>
-}
+} -->
 
-@if (false) {
-<app-login />
+<ng-container *ngIf="(authService.isLoggedIn | async); else unauthorized">
+  <app-nav>
+    <router-outlet></router-outlet>
+  </app-nav>
+</ng-container>
 
-}
-
-<app-side-menu />
-<router-outlet></router-outlet>
+<ng-template #unauthorized>
+  <router-outlet></router-outlet>
+</ng-template>

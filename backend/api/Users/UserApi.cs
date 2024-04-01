@@ -18,7 +18,21 @@ public static class UserApi
              Results.UnprocessableEntity(response.Data);
         });
 
-        group.MapGet("/list-users", async (IUserService userService) =>
+        group.MapPut("/edit", async (IUserService userService,
+                                     [FromBody] EditUserRequest request) =>
+        {
+            var response = await userService.EditUserAsync(request);
+            if (response.Success)
+            {
+                return Results.Ok(response.Data);
+            }
+
+            return response.Data is 404 ?
+            Results.NotFound(response.Message) :
+            Results.UnprocessableEntity(response.Data);
+        });
+
+        group.MapGet("/list", async (IUserService userService) =>
        {
            var users = await userService.ListAllUsers(default);
            return Results.Ok(users);

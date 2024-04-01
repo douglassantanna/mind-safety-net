@@ -35,7 +35,7 @@ export class LoginComponent {
     this.authService.login(this.emailFormControl?.value, this.passwordFormControl?.value).subscribe({
       next: () => {
         this.loading = false;
-        // this.router.navigate(['/cryptos']);
+        this.router.navigate(['/users/list']);
       },
       error: (err) => {
         console.log(err);

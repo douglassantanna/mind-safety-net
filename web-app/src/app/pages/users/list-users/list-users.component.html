@@ -1,0 +1,60 @@
+<section>
+  <header>
+    <h2>Users</h2>
+    <button mat-raised-button color="primary" (click)="newUser()">New User</button>
+  </header>
+
+  <table mat-table [dataSource]="users" class="mat-elevation-z1">
+
+    <ng-container matColumnDef="fullName" sticky>
+      <th mat-header-cell *matHeaderCellDef>FullName</th>
+      <td mat-cell *matCellDef="let element"> {{element.fullName }} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="email">
+      <th mat-header-cell *matHeaderCellDef>Email</th>
+      <td mat-cell *matCellDef="let element"> {{element.email }} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="role">
+      <th mat-header-cell *matHeaderCellDef>Role</th>
+      <td mat-cell *matCellDef="let element"> {{element.role == 1 ? 'Admin' : 'Manager' }} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="active">
+      <th mat-header-cell *matHeaderCellDef>Active</th>
+      <td mat-cell *matCellDef="let element">
+        @if (element.active) {
+        <mat-icon aria-hidden="active" color="primary">check</mat-icon>
+        }
+        @else {
+        <mat-icon aria-hidden="active" color="warn">close</mat-icon>
+        }
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="actions">
+      <th mat-header-cell *matHeaderCellDef>Actions</th>
+      <td mat-cell *matCellDef="let element">
+        <button mat-icon-button (click)="editUser(element)">
+          <mat-icon>edit</mat-icon>
+        </button>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+</section>
+
+<style>
+  section {
+    padding: 10px;
+  }
+
+  header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+</style>

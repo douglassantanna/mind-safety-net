@@ -2,16 +2,17 @@ using api.Users.Models;
 using FluentValidation;
 
 namespace api.Users.Dtos;
-public record CreateUserRequest(
+public record EditUserRequest(
     string FullName,
     string Email,
     Role Role,
-    bool Active
+    bool Active,
+    int Id
 );
 
-public class CreateUserRequestValidator : AbstractValidator<CreateUserRequest>
+public class EditUserRequestValidator : AbstractValidator<EditUserRequest>
 {
-    public CreateUserRequestValidator()
+    public EditUserRequestValidator()
     {
         RuleFor(x => x.FullName)
             .NotEmpty()
@@ -26,5 +27,6 @@ public class CreateUserRequestValidator : AbstractValidator<CreateUserRequest>
             .WithMessage("Please enter a valid email address.")
             .MaximumLength(255)
             .WithMessage("Email must be between 1 and {1} characters.");
+
     }
 }

@@ -1,11 +1,13 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterOutlet } from '@angular/router';
-import { Answer, Question, Score, myScores, questions } from './models/question';
+import { Answer, Question, Score, myScores, questions } from './core/models/question';
 import { QuestionService } from './services/question.service';
 import { FormArray, FormBuilder, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { LoginComponent } from './pages/authentication/login/login.component';
-import { SideMenuComponent } from './components/side-menu/side-menu.component';
+import { ListUsersComponent } from './pages/users/list-users/list-users.component';
+import { AuthenticationService } from './core/services/authentication.service';
+import { NavComponent } from './layout/nav/nav.component';
 
 @Component({
   selector: 'app-root',
@@ -16,7 +18,8 @@ import { SideMenuComponent } from './components/side-menu/side-menu.component';
     ReactiveFormsModule,
     FormsModule,
     LoginComponent,
-    SideMenuComponent],
+    ListUsersComponent,
+    NavComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })
@@ -27,6 +30,7 @@ export class AppComponent {
   messageScore = '';
   questionsForm: FormGroup = {} as FormGroup;
   constructor(
+    public authService: AuthenticationService,
     private questionService: QuestionService,
     private fb: FormBuilder) {
     this.questionsForm = this.fb.group({

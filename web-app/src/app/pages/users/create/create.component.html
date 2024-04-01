@@ -1,0 +1,59 @@
+<form [formGroup]="userForm">
+  <h2 mat-dialog-title>{{ title }}</h2>
+  <mat-dialog-content>
+
+    <mat-form-field appearance="outline">
+      <input matInput type="text" formControlName="fullName" id="fullName" placeholder="Fullname">
+      @if (fullNameFormControl.hasError('required')) {
+      <mat-error>Fullname is <strong>required</strong></mat-error>
+      }
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <input type="email" formControlName="email" id="email" matInput placeholder="Email">
+      @if (emailFormControl.hasError('email') && !emailFormControl.hasError('required')) {
+      <mat-error>Please enter a valid email address</mat-error>
+      }
+      @if (emailFormControl.hasError('required')) {
+      <mat-error>Email is <strong>required</strong></mat-error>
+      }
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Role</mat-label>
+      <mat-select formControlName="role" [(value)]="roleFormControl.value">
+        @for (role of roles; track role) {
+        <mat-option [value]="role.id">{{role.description}}</mat-option>
+        }
+      </mat-select>
+      @if (roleFormControl.hasError('required')) {
+      <mat-error>Role is <strong>required</strong></mat-error>
+      }
+    </mat-form-field>
+
+    <ng-container>
+      @if (userToEdit) {
+      <mat-slide-toggle [checked]="activeFormControl?.value" formControlName="active">
+        {{ activeFormControl?.value ? 'Active' : 'Disabled' }}
+      </mat-slide-toggle>
+      }
+    </ng-container>
+
+  </mat-dialog-content>
+
+  <mat-dialog-actions align="end">
+    <button mat-raised-button color="accent" mat-dialog-close>Cancel</button>
+    <app-submit-button [text]="'Save'" [loading]="!loading" [disabled]="userForm.invalid"
+      (click)="onSubmit()"></app-submit-button>
+  </mat-dialog-actions>
+</form>
+
+<style>
+  mat-form-field {
+    width: 100%;
+  }
+
+  mat-dialog-actions button {
+    margin-right: 5px;
+  }
+</style>
