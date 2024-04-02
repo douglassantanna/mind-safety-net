@@ -19,7 +19,7 @@
       </ul>
     </div>
     }
-    <app-submit-button [text]="'Submit Answers'" [loading]="!loading"
+    <app-submit-button [text]="'Submit Answers'" [loading]="!loading" (click)="onSubmit()"
       [disabled]="questionsForm.invalid"></app-submit-button>
   </form>
 </main>

@@ -5,6 +5,9 @@ import { Answer, Question, Score, myScores, questions } from '../../../core/mode
 import { AuthenticationService } from '../../../core/services/authentication.service';
 import { QuestionService } from '../../../services/question.service';
 import { SubmitButtonComponent } from '../../../layout/submit-button/submit-button.component';
+import { NewPatient, PatientService } from '../../../core/services/patient.service';
+import { MatDialog } from '@angular/material/dialog';
+import { PatientDetailsComponent } from '../../patiets/patient-details/patient-details.component';
 
 @Component({
   selector: 'app-patient-form',
@@ -14,8 +17,7 @@ import { SubmitButtonComponent } from '../../../layout/submit-button/submit-butt
     NgFor,
     SubmitButtonComponent
   ],
-  templateUrl: './patient-form.component.html',
-  styleUrl: './patient-form.component.scss'
+  templateUrl: './patient-form.component.html'
 })
 export class PatientFormComponent {
   scores = myScores;
@@ -28,6 +30,7 @@ export class PatientFormComponent {
   constructor(
     public authService: AuthenticationService,
     private questionService: QuestionService,
+    private dialog: MatDialog,
     private fb: FormBuilder) {
     this.questionsForm = this.fb.group({
       questions: this.fb.array([])
@@ -78,6 +81,18 @@ export class PatientFormComponent {
     }
 
     return closestScore!;
+  }
+
+  onSubmit(): void {
+    const dialogRef = this.dialog.open(PatientDetailsComponent, {
+      width: '350px',
+      height: '430px',
+      data: this.questionsForm.value
+    })
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) console.log('ok');
+    })
   }
   get questionsArray() { return this.questionsForm.get('questions') as FormArray; }
 
