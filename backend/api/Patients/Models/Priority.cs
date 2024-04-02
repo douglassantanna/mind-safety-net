@@ -1,4 +1,4 @@
-namespace api.SuicideForms.Models;
+namespace api.Patients.Models;
 public enum Priority
 {
     Low = 1,
