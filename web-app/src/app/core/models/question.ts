@@ -1,12 +1,12 @@
 export interface Question {
   id: number;
-  question: string;
+  description: string;
   answers: Answer[];
 }
 
 export interface Answer {
   id: number;
-  answer: string;
+  description: string;
   value: number;
 }
 
@@ -22,92 +22,92 @@ export const myScores: Score[] = [
 export const questions: Question[] = [
   {
     id: 1,
-    question: "What is the capital of France?",
+    description: "What is the capital of France?",
     answers: [
-      { id: 1, answer: "Paris", value: 5 },
-      { id: 2, answer: "London", value: 1 },
-      { id: 3, answer: "Berlin", value: 2 }
+      { id: 1, description: "Paris", value: 5 },
+      { id: 2, description: "London", value: 1 },
+      { id: 3, description: "Berlin", value: 2 }
     ]
   },
   {
     id: 2,
-    question: "Which chemical element has the atomic number 7?",
+    description: "Which chemical element has the atomic number 7?",
     answers: [
-      { id: 1, answer: "Nitrogen", value: 5 },
-      { id: 2, answer: "Oxygen", value: 2 },
-      { id: 3, answer: "Carbon", value: 3 }
+      { id: 1, description: "Nitrogen", value: 5 },
+      { id: 2, description: "Oxygen", value: 2 },
+      { id: 3, description: "Carbon", value: 3 }
     ]
   },
   {
     id: 3,
-    question: "What is the longest river in the world?",
+    description: "What is the longest river in the world?",
     answers: [
-      { id: 1, answer: "Nile", value: 5 },
-      { id: 2, answer: "Amazon", value: 4 },
-      { id: 3, answer: "Yangtze", value: 3 }
+      { id: 1, description: "Nile", value: 5 },
+      { id: 2, description: "Amazon", value: 4 },
+      { id: 3, description: "Yangtze", value: 3 }
     ]
   },
   {
     id: 4,
-    question: "What is the scientific name for a human?",
+    description: "What is the scientific name for a human?",
     answers: [
-      { id: 1, answer: "Homo sapiens", value: 5 },
-      { id: 2, answer: "Pan troglodytes", value: 2 },
-      { id: 3, answer: "Ursus arctos", value: 1 }
+      { id: 1, description: "Homo sapiens", value: 5 },
+      { id: 2, description: "Pan troglodytes", value: 2 },
+      { id: 3, description: "Ursus arctos", value: 1 }
     ]
   },
   {
     id: 5,
-    question: "What is the current year?",
+    description: "What is the current year?",
     answers: [
-      { id: 1, answer: "2024", value: 5 },
-      { id: 2, answer: "2023", value: 3 },
-      { id: 3, answer: "2025", value: 1 }
+      { id: 1, description: "2024", value: 5 },
+      { id: 2, description: "2023", value: 3 },
+      { id: 3, description: "2025", value: 1 }
     ]
   },
   {
     id: 6,
-    question: "Which artist painted the Mona Lisa?",
+    description: "Which artist painted the Mona Lisa?",
     answers: [
-      { id: 1, answer: "Leonardo da Vinci", value: 5 },
-      { id: 2, answer: "Michelangelo", value: 3 },
-      { id: 3, answer: "Raphael", value: 2 }
+      { id: 1, description: "Leonardo da Vinci", value: 5 },
+      { id: 2, description: "Michelangelo", value: 3 },
+      { id: 3, description: "Raphael", value: 2 }
     ]
   },
   {
     id: 7,
-    question: "What is the meaning of the word 'palindrome'?",
+    description: "What is the meaning of the word 'palindrome'?",
     answers: [
-      { id: 1, answer: "A word that reads the same backward and forward", value: 5 },
-      { id: 2, answer: "A type of flower", value: 2 },
-      { id: 3, answer: "A musical instrument", value: 1 }
+      { id: 1, description: "A word that reads the same backward and forward", value: 5 },
+      { id: 2, description: "A type of flower", value: 2 },
+      { id: 3, description: "A musical instrument", value: 1 }
     ]
   },
   {
     id: 8,
-    question: "How many sides does a stop sign have?",
+    description: "How many sides does a stop sign have?",
     answers: [
-      { id: 1, answer: "8", value: 5 },
-      { id: 2, answer: "6", value: 3 },
-      { id: 3, answer: "4", value: 2 }
+      { id: 1, description: "8", value: 5 },
+      { id: 2, description: "6", value: 3 },
+      { id: 3, description: "4", value: 2 }
     ]
   },
   {
     id: 9,
-    question: "What is the capital of Australia?",
+    description: "What is the capital of Australia?",
     answers: [
-      { id: 1, answer: "Sydney", value: 2 },
-      { id: 2, answer: "Melbourne", value: 3 },
-      { id: 3, answer: "Canberra", value: 5 }
+      { id: 1, description: "Sydney", value: 2 },
+      { id: 2, description: "Melbourne", value: 3 },
+      { id: 3, description: "Canberra", value: 5 }
     ]
   },
   {
     id: 10,
-    question: "What is the square root of 25?",
+    description: "What is the square root of 25?",
     answers: [
-      { id: 1, answer: "5", value: 5 },
-      { id: 2, answer: "10", value: 3 },
-      { id: 3, answer: "15", value: 1 }
+      { id: 1, description: "5", value: 5 },
+      { id: 2, description: "10", value: 3 },
+      { id: 3, description: "15", value: 1 }
     ]
   }
 ];

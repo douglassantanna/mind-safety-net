@@ -3,7 +3,7 @@ using api.Users.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace api.Users;
-public static class UserApi
+public static class PatientApi
 {
     public static RouteGroupBuilder MapUsers(this IEndpointRouteBuilder routes)
     {
