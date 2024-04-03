@@ -6,14 +6,14 @@
   <form method="POST" formGroupName="questions">
     @for (question of questions; track question.id; let i = $index) {
     <div class="card">
-      <h3>{{ question.question }}</h3>
+      <h3>{{ question.description }}</h3>
       <ul class="answers-list">
         @for (answer of question.answers; track $index) {
         <li class="answer-item">
           <input class="answer-input" (click)="setQuestions(question, answer, i)"
             [checked]="setCheckedAnswers(question, answer, i)" type="radio" name="question{{ question.id }}"
             [value]="answer.value">
-          <span class="answer-text">{{ answer.answer }}</span>
+          <span class="answer-text">{{ answer.description }}</span>
         </li>
         }
       </ul>
