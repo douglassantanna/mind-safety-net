@@ -9,6 +9,8 @@ public class Question : Entity
         Description = description;
         AddAnswers(answers);
     }
+    protected Question()
+    { }
     public string Description { get; set; } = string.Empty;
     private readonly List<Answer> _answers = [];
     public IReadOnlyCollection<Answer> Answers => _answers.AsReadOnly();

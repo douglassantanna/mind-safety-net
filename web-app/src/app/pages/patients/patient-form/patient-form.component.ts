@@ -3,11 +3,9 @@ import { Component } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { Answer, Question, Score, myScores, questions } from '../../../core/models/question';
 import { AuthenticationService } from '../../../core/services/authentication.service';
-import { QuestionService } from '../../../services/question.service';
 import { SubmitButtonComponent } from '../../../layout/submit-button/submit-button.component';
-import { NewPatient, PatientService } from '../../../core/services/patient.service';
 import { MatDialog } from '@angular/material/dialog';
-import { PatientDetailsComponent } from '../../patiets/patient-details/patient-details.component';
+import { PatientDetailsComponent } from '../patient-details/patient-details.component';
 
 @Component({
   selector: 'app-patient-form',
@@ -29,7 +27,6 @@ export class PatientFormComponent {
 
   constructor(
     public authService: AuthenticationService,
-    private questionService: QuestionService,
     private dialog: MatDialog,
     private fb: FormBuilder) {
     this.questionsForm = this.fb.group({

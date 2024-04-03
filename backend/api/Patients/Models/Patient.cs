@@ -16,6 +16,8 @@ public class Patient : Entity
     _questions.AddRange(questions);
     SetPriority(_questions);
   }
+  protected Patient()
+  { }
   private void SetPriority(IEnumerable<Question> _questionsToSum)
   {
     int sum = _questionsToSum.Sum(q => q.Answers.Sum(a => a.Value));
