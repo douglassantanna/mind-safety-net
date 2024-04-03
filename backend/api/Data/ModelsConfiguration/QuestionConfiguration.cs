@@ -1,4 +1,4 @@
-using api.Patients.Models;
+using api.Questions.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 

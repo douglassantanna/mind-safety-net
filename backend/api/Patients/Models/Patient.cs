@@ -1,26 +1,33 @@
+using api.Questions.Models;
 using api.Shared;
 
 namespace api.Patients.Models;
 public class Patient : Entity
 {
-  public Patient(string fullName, string email, string phoneNumber, List<Question> questions)
+  public Patient(
+      string fullName,
+      string email,
+      string phoneNumber,
+      IEnumerable<Question> questions)
   {
     FullName = fullName;
     Email = email;
     PhoneNumber = phoneNumber;
-    AddQuestions(questions);
+    _questions.AddRange(questions);
+    SetPriority(_questions);
   }
-
-  private void AddQuestions(List<Question> questions)
+  private void SetPriority(IEnumerable<Question> _questionsToSum)
   {
-    var questionsToAdd = questions.SelectMany(q => new Question());
+    int sum = _questionsToSum.Sum(q => q.Answers.Sum(a => a.Value));
+
+    Priority = sum switch
+    {
+      0 => Priority.Undefined,
+      int n when n < 25 => Priority.Low,
+      int n when n < 50 => Priority.Medium,
+      _ => Priority.High
+    };
   }
-
-  private void SetPriority()
-  {
-
-  }
-
   public string FullName { get; set; } = string.Empty;
   public string Email { get; set; } = string.Empty;
   public string PhoneNumber { get; set; } = string.Empty;
@@ -28,5 +35,4 @@ public class Patient : Entity
   public IReadOnlyCollection<Question> Questions => _questions.AsReadOnly();
   public DateTime DateSubmittedForm { get; private set; }
   public Priority Priority { get; private set; }
-
 }

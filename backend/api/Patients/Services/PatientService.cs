@@ -3,12 +3,13 @@ using api.Patients.Dtos;
 using api.Patients.Models;
 using api.Shared;
 using FluentValidation;
+using Microsoft.EntityFrameworkCore;
 
 namespace api.Patients.Services;
 public interface IPatientService
 {
-    Task<Response> CreatePatientAsync(CreatePatientRequest request);
-    Task<List<ViewPatientDTO>> ListAllPatients(CancellationToken ct);
+    Task<Response> CreateAsync(CreatePatientRequest request);
+    Task<IEnumerable<ViewPatientDTO>> ListAsync(CancellationToken ct);
 }
 public class PatientService(
     DataContext context,
@@ -16,35 +17,53 @@ public class PatientService(
 {
     private readonly DataContext _context = context;
     private readonly IValidator<CreatePatientRequest> _createPatientvalidator = createPatientvalidator;
-
-    public async Task<Response> CreatePatientAsync(CreatePatientRequest request)
+    public async Task<Response> CreateAsync(CreatePatientRequest request)
     {
         var validationResult = await _createPatientvalidator.ValidateAsync(request);
-
         if (!validationResult.IsValid)
         {
             var errors = validationResult.Errors.Select(e => e.ErrorMessage);
             return new Response("", false, errors);
         }
 
-        var patient = new Patient
+        var questionsToAdd = _context.Questions
+                                    .Include(q => q.Answers)
+                                    .Where(q => request.Questions.Select(x => x.Id).Contains(q.Id))
+                                    .ToList();
+
+        if (!questionsToAdd.Any()) return new Response("No questions found!", false);
+
+        var patient = new Patient(
+            request.FullName,
+            request.Email,
+            request.PhoneNumber,
+            questionsToAdd
+        );
+
+        try
         {
-            FullName = request.FullName,
-            Email = request.Email,
-            PhoneNumber = request.PhoneNumber
-        };
-
-        // aqui temos que ir ate o banco de dados, obter a pergunta pelo id que é enviado do frontend
-        // e gravar na entidade Patient todas as perguntasId e respostaId.
-
-        _context.Patients.Add(patient);
-        await _context.SaveChangesAsync();
+            _context.Patients.Add(patient);
+            await _context.SaveChangesAsync();
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error: {0}", ex.Message);
+        }
 
         return new Response("", true, patient.Id);
     }
 
-    public Task<List<ViewPatientDTO>> ListAllPatients(CancellationToken ct)
+    public async Task<IEnumerable<ViewPatientDTO>> ListAsync(CancellationToken ct)
     {
-        throw new NotImplementedException();
+        IEnumerable<ViewPatientDTO> viewPatients = [];
+        try
+        {
+            viewPatients = await _context.Patients.Select(p => new ViewPatientDTO(p.FullName, p.Email, p.DateSubmittedForm, p.Priority)).ToListAsync(cancellationToken: ct);
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error: {0}", ex.Message);
+        }
+        return viewPatients;
     }
 }

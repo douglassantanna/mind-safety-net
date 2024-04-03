@@ -3,7 +3,9 @@ using api.Authentication;
 using api.Authentication.DependencyInjection;
 using api.Authentication.Services;
 using api.Data;
+using api.Patients;
 using api.Patients.Services;
+using api.Questions.Services;
 using api.Shared;
 using api.Users;
 using api.Users.Services;
@@ -18,6 +20,7 @@ builder.Services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
 builder.Services.AddScoped<IPasswordHelper, PasswordHelper>();
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IPatientService, PatientService>();
+builder.Services.AddScoped<IQuestionService, QuestionService>();
 builder.Services.AddScoped<IAuthenticationService, AuthenticationService>();
 builder.Services.AddTokenService(builder.Configuration);
 builder.Services.AddAuthorization();
@@ -42,6 +45,9 @@ var app = builder.Build();
 
 app.UseCors("Policy");
 
+app.MapPatients();
+
+app.MapQuestions();
 
 app.MapUsers();
 
