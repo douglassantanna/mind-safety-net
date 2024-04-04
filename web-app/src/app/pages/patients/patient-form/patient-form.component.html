@@ -4,7 +4,7 @@
 </header>
 <main class="main" [formGroup]="questionsForm">
   <form method="POST" formGroupName="questions">
-    @for (question of questions; track question.id; let i = $index) {
+    @for (question of questionList; track question.id; let i = $index) {
     <div class="card">
       <h3>{{ question.description }}</h3>
       <ul class="answers-list">

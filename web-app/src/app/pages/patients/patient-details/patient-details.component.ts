@@ -5,6 +5,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { SubmitButtonComponent } from '../../../layout/submit-button/submit-button.component';
 import { PatientService, NewPatient } from '../../../core/services/patient.service';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'app-patient-details',
@@ -15,6 +16,7 @@ import { PatientService, NewPatient } from '../../../core/services/patient.servi
     MatInputModule,
     MatFormFieldModule,
     SubmitButtonComponent,
+    MatButtonModule
   ],
   templateUrl: './patient-details.component.html'
 })

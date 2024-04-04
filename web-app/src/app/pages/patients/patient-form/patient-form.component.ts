@@ -1,5 +1,5 @@
 import { NgFor } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { Answer, Question, Score, myScores, questions } from '../../../core/models/question';
 import { AuthenticationService } from '../../../core/services/authentication.service';
@@ -17,9 +17,9 @@ import { PatientDetailsComponent } from '../patient-details/patient-details.comp
   ],
   templateUrl: './patient-form.component.html'
 })
-export class PatientFormComponent {
+export class PatientFormComponent implements OnInit {
   scores = myScores;
-  questions = questions;
+  questionList = questions;
   questionsLenght = questions.length;
   messageScore = '';
   questionsForm: FormGroup = {} as FormGroup;
@@ -32,6 +32,13 @@ export class PatientFormComponent {
     this.questionsForm = this.fb.group({
       questions: this.fb.array([])
     });
+  }
+  ngOnInit(): void {
+    this.updateQuestionList();
+  }
+
+  updateQuestionList(): void {
+    this.questionList = questions.filter(question => question.enable);
   }
 
   setCheckedAnswers(question: Question, answer: Answer, index: number) {
