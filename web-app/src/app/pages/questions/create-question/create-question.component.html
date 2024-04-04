@@ -53,7 +53,8 @@
 
 <mat-dialog-actions align="end">
   <button mat-raised-button color="accent" type="button" (click)="addAnswer()">Add Answer</button>
-  <button mat-raised-button (click)="onSubmit()" color="primary" type="submit">Submit</button>
+  <button mat-raised-button (click)="onSubmit()" color="primary" [disabled]="createQuestionForm.invalid"
+    type="submit">Submit</button>
 </mat-dialog-actions>
 
 

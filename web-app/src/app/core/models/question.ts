@@ -2,7 +2,7 @@ export interface Question {
   id: number;
   description: string;
   answers: Answer[];
-  enable: boolean;
+  enabled: boolean;
 }
 
 export interface Answer {
@@ -34,7 +34,7 @@ export const questions: Question[] = [
   {
     id: 1,
     description: "What is the capital of France?",
-    enable: true,
+    enabled: true,
     answers: [
       { id: 1, description: "Paris", value: 5 },
       { id: 2, description: "London", value: 1 },
@@ -44,7 +44,7 @@ export const questions: Question[] = [
   {
     id: 2,
     description: "Which chemical element has the atomic number 7?",
-    enable: true,
+    enabled: true,
     answers: [
       { id: 1, description: "Nitrogen", value: 5 },
       { id: 2, description: "Oxygen", value: 2 },
@@ -54,7 +54,7 @@ export const questions: Question[] = [
   {
     id: 3,
     description: "What is the longest river in the world?",
-    enable: false,
+    enabled: false,
     answers: [
       { id: 1, description: "Nile", value: 5 },
       { id: 2, description: "Amazon", value: 4 },
@@ -64,7 +64,7 @@ export const questions: Question[] = [
   {
     id: 4,
     description: "What is the scientific name for a human?",
-    enable: true,
+    enabled: true,
     answers: [
       { id: 1, description: "Homo sapiens", value: 5 },
       { id: 2, description: "Pan troglodytes", value: 2 },
@@ -74,7 +74,7 @@ export const questions: Question[] = [
   {
     id: 5,
     description: "What is the current year?",
-    enable: false,
+    enabled: false,
     answers: [
       { id: 1, description: "2024", value: 5 },
       { id: 2, description: "2023", value: 3 },
@@ -84,7 +84,7 @@ export const questions: Question[] = [
   {
     id: 6,
     description: "Which artist painted the Mona Lisa?",
-    enable: true,
+    enabled: true,
     answers: [
       { id: 1, description: "Leonardo da Vinci", value: 5 },
       { id: 2, description: "Michelangelo", value: 3 },
@@ -94,7 +94,7 @@ export const questions: Question[] = [
   {
     id: 7,
     description: "What is the meaning of the word 'palindrome'?",
-    enable: true,
+    enabled: true,
     answers: [
       { id: 1, description: "A word that reads the same backward and forward", value: 5 },
       { id: 2, description: "A type of flower", value: 2 },
@@ -104,7 +104,7 @@ export const questions: Question[] = [
   {
     id: 8,
     description: "How many sides does a stop sign have?",
-    enable: false,
+    enabled: false,
     answers: [
       { id: 1, description: "8", value: 5 },
       { id: 2, description: "6", value: 3 },
@@ -114,7 +114,7 @@ export const questions: Question[] = [
   {
     id: 9,
     description: "What is the capital of Australia?",
-    enable: true,
+    enabled: true,
     answers: [
       { id: 1, description: "Sydney", value: 2 },
       { id: 2, description: "Melbourne", value: 3 },
@@ -124,7 +124,7 @@ export const questions: Question[] = [
   {
     id: 10,
     description: "What is the square root of 25?",
-    enable: true,
+    enabled: true,
     answers: [
       { id: 1, description: "5", value: 5 },
       { id: 2, description: "10", value: 3 },

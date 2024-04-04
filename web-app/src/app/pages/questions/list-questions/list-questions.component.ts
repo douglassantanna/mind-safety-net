@@ -37,7 +37,6 @@ export class ListQuestionsComponent implements OnInit {
     this.questionService.list().subscribe({
       next: (questions) => {
         this.questions = questions;
-        console.log(this.questions);
       },
       error(err) {
         console.log(err);
@@ -47,8 +46,7 @@ export class ListQuestionsComponent implements OnInit {
 
   newQuestion() {
     const dialogRef = this.dialog.open(CreateQuestionComponent, {
-      width: '600px',
-      height: '90%'
+      width: '800px',
     })
 
     dialogRef.afterClosed().subscribe((result) => {
@@ -58,7 +56,7 @@ export class ListQuestionsComponent implements OnInit {
 
   toggleQuestionEnable(enable: boolean, index: number): void {
     if (index >= 0 && index < this.questions.length) {
-      this.questions[index].enable = enable;
+      this.questions[index].enabled = enable;
     }
   }
 }

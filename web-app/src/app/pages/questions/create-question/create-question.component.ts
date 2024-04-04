@@ -2,9 +2,10 @@ import { CommonModule, NgFor } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormArray, FormsModule, ReactiveFormsModule, FormControl } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
-import { MatDialogModule } from '@angular/material/dialog';
+import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
+import { QuestionService } from '../../../core/services/question.service';
 
 @Component({
   selector: 'app-create-question',
@@ -23,7 +24,10 @@ import { MatInputModule } from '@angular/material/input';
 export class CreateQuestionComponent {
   createQuestionForm: FormGroup;
 
-  constructor(private formBuilder: FormBuilder) {
+  constructor(
+    private formBuilder: FormBuilder,
+    private questionService: QuestionService,
+    private dialogRef: MatDialogRef<CreateQuestionComponent>) {
     this.createQuestionForm = this.formBuilder.group({
       description: ['', [Validators.maxLength(500), Validators.required]],
       answers: this.formBuilder.array([
@@ -50,13 +54,17 @@ export class CreateQuestionComponent {
   }
 
   onSubmit(): void {
-    console.log(this.answerDescriptionFormControl?.value);
-
     if (this.createQuestionForm.valid) {
-      console.log(this.createQuestionForm.value);
-      // You can submit the form data to your backend API here
-    } else {
-      // Handle form validation errors
+      this.questionService.create(this.createQuestionForm.value).subscribe({
+        next: (value) => {
+          this.dialogRef.close({
+            questionId: value
+          })
+        },
+        error: (err) => {
+          console.log(err);
+        },
+      })
     }
   }
 

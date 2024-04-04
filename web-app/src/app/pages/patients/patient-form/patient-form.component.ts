@@ -1,4 +1,4 @@
-import { NgFor } from '@angular/common';
+import { CommonModule, NgFor } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { Answer, Question, Score, myScores, questions } from '../../../core/models/question';
@@ -6,6 +6,7 @@ import { AuthenticationService } from '../../../core/services/authentication.ser
 import { SubmitButtonComponent } from '../../../layout/submit-button/submit-button.component';
 import { MatDialog } from '@angular/material/dialog';
 import { PatientDetailsComponent } from '../patient-details/patient-details.component';
+import { QuestionService } from '../../../core/services/question.service';
 
 @Component({
   selector: 'app-patient-form',
@@ -13,14 +14,13 @@ import { PatientDetailsComponent } from '../patient-details/patient-details.comp
   imports: [
     ReactiveFormsModule,
     NgFor,
-    SubmitButtonComponent
+    SubmitButtonComponent,
   ],
   templateUrl: './patient-form.component.html'
 })
 export class PatientFormComponent implements OnInit {
   scores = myScores;
-  questionList = questions;
-  questionsLenght = questions.length;
+  questionList: Question[] = [];
   messageScore = '';
   questionsForm: FormGroup = {} as FormGroup;
   loading = false;
@@ -28,6 +28,7 @@ export class PatientFormComponent implements OnInit {
   constructor(
     public authService: AuthenticationService,
     private dialog: MatDialog,
+    private questionService: QuestionService,
     private fb: FormBuilder) {
     this.questionsForm = this.fb.group({
       questions: this.fb.array([])
@@ -38,7 +39,14 @@ export class PatientFormComponent implements OnInit {
   }
 
   updateQuestionList(): void {
-    this.questionList = questions.filter(question => question.enable);
+    this.questionService.list().subscribe({
+      next: (questions) => {
+        this.questionList = questions.filter(question => question.enabled);
+      },
+      error: (err) => {
+        console.log(err);
+      },
+    })
   }
 
   setCheckedAnswers(question: Question, answer: Answer, index: number) {
