@@ -1,1 +1,119 @@
-<p>create-question works!</p>
+<h2 mat-dialog-title>New question</h2>
+<mat-dialog-content>
+  <form [formGroup]="createQuestionForm" (ngSubmit)="onSubmit()">
+    <mat-form-field appearance="outline">
+      <textarea matInput placeholder="Description" formControlName="description"></textarea>
+      <mat-error *ngIf="createQuestionForm.get('description')?.hasError('required')">Description is required</mat-error>
+    </mat-form-field>
+
+    <div formArrayName="answers">
+      <div *ngFor="let answerGroup of answerFormArray.controls; let i = index" class="card">
+        <div class="card-header">
+          <span>Answer {{ i + 1 }}</span>
+          <button mat-icon-button color="warn" type="button" (click)="removeAnswer(i)">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </div>
+        <div [formGroupName]="i" class="fields">
+          <mat-form-field appearance="outline">
+            <textarea matInput placeholder="Answer Description" maxlength="500"
+              formControlName="description"></textarea>
+            <mat-error *ngIf="createQuestionForm.get('description')?.hasError('required')">Description
+              is required</mat-error>
+          </mat-form-field>
+          <mat-form-field appearance="outline">
+            <input maxlength="255" matInput placeholder="Answer Value" type="number" formControlName="value">
+            <mat-error *ngIf="createQuestionForm.get('value')?.hasError('required')">Value
+              is required</mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+  </form>
+
+  <section>
+    <h2>Question preview</h2>
+    <div class="card">
+      <div class="card-header">
+        <span>{{ questionDescriptionFormControl?.value }}</span>
+      </div>
+      <ul class="answers-list">
+        @for (answer of answerFormArray.controls; track answer.value; let ai = $index) {
+        <li class="answer-item">
+          <span></span>
+          <span class="answer-text">{{ ai + 1 }}. {{ answer.get('description')?.value }}. <strong>Value:</strong>
+            {{ answer.get('value')?.value
+            }}</span>
+        </li>
+        }
+      </ul>
+    </div>
+  </section>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-raised-button color="accent" type="button" (click)="addAnswer()">Add Answer</button>
+  <button mat-raised-button (click)="onSubmit()" color="primary" type="submit">Submit</button>
+</mat-dialog-actions>
+
+
+<style>
+  form {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
+
+  .fields {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
+
+  section {
+    width: 100%;
+    margin-top: 10px;
+  }
+
+  .card {
+    background-color: #ffffff;
+    border: 1px solid #cccccc;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+    width: calc(50% - 10px);
+    overflow: hidden;
+    width: 100%;
+    height: 100%;
+    margin-bottom: 5px;
+  }
+
+  .card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+
+  .card-header span {
+    font-size: large;
+  }
+
+  .answers-list {
+    list-style-type: none;
+    padding: 0;
+  }
+
+  .answer-item {
+    margin-bottom: 10px;
+  }
+
+  .answer-input {
+    margin-right: 10px;
+  }
+
+  .answer-text {
+    font-size: 16px;
+    color: #333333;
+  }
+</style>

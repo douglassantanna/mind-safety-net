@@ -11,6 +11,16 @@ export interface Answer {
   value: number;
 }
 
+export interface CreateQuestion {
+  description: string;
+  answers: CreateAnswer[];
+}
+
+export interface CreateAnswer {
+  description: string;
+  value: number;
+}
+
 export interface Scores { scores: Score[] }
 export interface Score { id: number, value: number, description: string }
 

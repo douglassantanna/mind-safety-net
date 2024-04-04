@@ -4,8 +4,10 @@ import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
-import { questions } from '../../../core/models/question';
+import { Question, questions } from '../../../core/models/question';
 import { FormControl } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
+import { CreateQuestionComponent } from '../create-question/create-question.component';
 
 @Component({
   selector: 'app-list-questions',
@@ -19,24 +21,40 @@ import { FormControl } from '@angular/forms';
   templateUrl: './list-questions.component.html'
 })
 export class ListQuestionsComponent implements OnInit {
-  questions = questions;
+  questions: Question[] = [];
   questionsLenght = questions.length;
-  constructor(private questionService: QuestionService) { }
   questionEnabled = new FormControl(true);
+
+  constructor(
+    private questionService: QuestionService,
+    private dialog: MatDialog) { }
+
   ngOnInit(): void {
+    this.loadQuestions();
+  }
+
+  loadQuestions() {
     this.questionService.list().subscribe({
-      next: (value) => {
-        console.log(value);
-
+      next: (questions) => {
+        this.questions = questions;
+        console.log(this.questions);
       },
-      error: (err) => {
+      error(err) {
         console.log(err);
-
       },
     })
-
   }
-  newQuestion() { }
+
+  newQuestion() {
+    const dialogRef = this.dialog.open(CreateQuestionComponent, {
+      width: '600px',
+      height: '90%'
+    })
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) this.loadQuestions();
+    })
+  }
 
   toggleQuestionEnable(enable: boolean, index: number): void {
     if (index >= 0 && index < this.questions.length) {

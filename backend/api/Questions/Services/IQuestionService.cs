@@ -49,6 +49,7 @@ public class QuestionService(
                                           .Select(q => new ViewQuestionDTO(
                                               q.Id,
                                               q.Description,
+                                              q.Enabled,
                                               q.Answers.Select(a => new ViewAnswerDTO(a.Id, a.Description, a.Value))
                                           ))
                                           .ToListAsync();

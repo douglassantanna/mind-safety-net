@@ -2,7 +2,8 @@ import { Injectable } from '@angular/core';
 import { environment } from '../../../environments/environment.development';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Question } from '../models/question';
+import { CreateQuestion, Question } from '../models/question';
+import { CustomResponse } from '../models/response';
 const url = `${environment.apiUrl}/questions`;
 
 @Injectable({
@@ -12,8 +13,8 @@ export class QuestionService {
 
   constructor(private http: HttpClient) { }
 
-  create(question: any): Observable<any> {
-    return this.http.post<any>(`${url}/create`, question);
+  create(question: CreateQuestion): Observable<CustomResponse> {
+    return this.http.post<CustomResponse>(`${url}/create`, question);
   }
 
   list(): Observable<Question[]> {
