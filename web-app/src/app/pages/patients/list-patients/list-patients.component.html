@@ -1,37 +1,44 @@
-<table mat-table [dataSource]="patients" class="mat-elevation-z1">
+<main>
+  <header>
+    <h2>Patients</h2>
+  </header>
 
-  <ng-container matColumnDef="fullName" sticky>
-    <th mat-header-cell *matHeaderCellDef>FullName</th>
-    <td mat-cell *matCellDef="let element"> {{element.fullName }} </td>
-  </ng-container>
+  <table mat-table [dataSource]="patients" class="mat-elevation-z1">
 
-  <ng-container matColumnDef="email">
-    <th mat-header-cell *matHeaderCellDef>Email</th>
-    <td mat-cell *matCellDef="let element"> {{element.email }} </td>
-  </ng-container>
+    <ng-container matColumnDef="fullName" sticky>
+      <th mat-header-cell *matHeaderCellDef>Full name</th>
+      <td mat-cell *matCellDef="let element"> {{element.fullName }} </td>
+    </ng-container>
 
-  <ng-container matColumnDef="priority">
-    <th mat-header-cell *matHeaderCellDef> Priority </th>
-    <td mat-cell *matCellDef="let patient">
-      <app-patient-priority [priority]="patient.priority"></app-patient-priority>
-    </td>
-  </ng-container>
+    <ng-container matColumnDef="email">
+      <th mat-header-cell *matHeaderCellDef>Email</th>
+      <td mat-cell *matCellDef="let element"> {{element.email }} </td>
+    </ng-container>
 
-  <ng-container matColumnDef="actions">
-    <th mat-header-cell *matHeaderCellDef>Actions</th>
-    <td mat-cell *matCellDef="let element">
-      <button mat-icon-button (click)="patientDetails(element)">
-        <mat-icon>edit</mat-icon>
-      </button>
-    </td>
-  </ng-container>
+    <ng-container matColumnDef="priority">
+      <th mat-header-cell *matHeaderCellDef> Priority </th>
+      <td mat-cell *matCellDef="let patient">
+        <app-patient-priority [priority]="patient.priority"></app-patient-priority>
+      </td>
+    </ng-container>
 
-  <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
-  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-</table>
+    <ng-container matColumnDef="actions">
+      <th mat-header-cell *matHeaderCellDef>Actions</th>
+      <td mat-cell *matCellDef="let element">
+        <button color="primary" mat-icon-button (click)="patientDetails(element)"
+          matTooltip="More details about the patient">
+          <mat-icon>visibility</mat-icon>
+        </button>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+</main>
 
 <style>
-  .priority {
-    background-color: red;
+  main {
+    padding: 10px;
   }
 </style>

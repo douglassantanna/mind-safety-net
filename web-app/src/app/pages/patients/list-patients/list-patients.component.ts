@@ -4,7 +4,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTableModule } from '@angular/material/table';
 import { PatientPriorityComponent } from '../../../layout/patient-priority/patient-priority.component';
-
+import { MatTooltipModule } from '@angular/material/tooltip';
 @Component({
   selector: 'app-list-patients',
   standalone: true,
@@ -13,7 +13,8 @@ import { PatientPriorityComponent } from '../../../layout/patient-priority/patie
     MatTableModule,
     MatButtonModule,
     MatIconModule,
-    PatientPriorityComponent
+    PatientPriorityComponent,
+    MatTooltipModule
   ],
   templateUrl: './list-patients.component.html'
 })
@@ -80,6 +81,6 @@ export class ListPatientsComponent {
       "priority": 3
     }
   ]
-  displayedColumns = ['fullName', 'email', 'priority'];
+  displayedColumns = ['fullName', 'email', 'priority', 'actions'];
   patientDetails(patient: any) { }
 }

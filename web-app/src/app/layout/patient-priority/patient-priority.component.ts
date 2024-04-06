@@ -6,7 +6,11 @@ import { CommonModule } from '@angular/common';
   selector: 'app-patient-priority',
   standalone: true,
   imports: [CommonModule],
-  templateUrl: './patient-priority.component.html',
+  template: `
+    <div [ngClass]="['priority', getClasses()]">
+      {{ priorityString }}
+    </div>
+  `,
   styles: [`
   .priority {
     padding: 5px;
