@@ -5,7 +5,7 @@ import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
-import { Question, questions } from '../../../core/models/question';
+import { Question } from '../../../core/models/question';
 import { FormControl } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { CreateQuestionComponent } from '../create-question/create-question.component';
@@ -23,7 +23,6 @@ import { CreateQuestionComponent } from '../create-question/create-question.comp
 })
 export class ListQuestionsComponent implements OnInit {
   questions: Question[] = [];
-  questionsLenght = questions.length;
   questionEnabled = new FormControl(true);
 
   constructor(

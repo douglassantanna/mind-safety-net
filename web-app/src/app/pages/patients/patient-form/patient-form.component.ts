@@ -1,7 +1,7 @@
-import { CommonModule, NgFor } from '@angular/common';
+import { NgFor } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { Answer, Question, Score, myScores, questions } from '../../../core/models/question';
+import { Answer, Question } from '../../../core/models/question';
 import { AuthenticationService } from '../../../core/services/authentication.service';
 import { SubmitButtonComponent } from '../../../layout/submit-button/submit-button.component';
 import { MatDialog } from '@angular/material/dialog';
@@ -19,7 +19,6 @@ import { QuestionService } from '../../../core/services/question.service';
   templateUrl: './patient-form.component.html'
 })
 export class PatientFormComponent implements OnInit {
-  scores = myScores;
   questionList: Question[] = [];
   messageScore = '';
   questionsForm: FormGroup = {} as FormGroup;
@@ -67,32 +66,6 @@ export class PatientFormComponent implements OnInit {
     if (questionList[index]?.questionId == question.id) {
       this.questionsArray.removeAt(index);
     }
-    this.questionsValueSum();
-  }
-
-  questionsValueSum() {
-    let score = 0;
-    const questionList = this.questionsArray.value;
-    score = questionList.reduce((acc: any, question: any) => acc + question.answerValue, 0);
-    const closestMatch = this.findClosestScore(score);
-    if (closestMatch) {
-      this.messageScore = closestMatch.description;
-    }
-  }
-
-  findClosestScore(finalScore: number): Score {
-    let closestScore: Score | undefined = undefined;
-    let minDifference = Number.MAX_VALUE;
-
-    for (const score of myScores) {
-      const difference = Math.abs(finalScore - score.value);
-      if (difference < minDifference) {
-        minDifference = difference;
-        closestScore = score;
-      }
-    }
-
-    return closestScore!;
   }
 
   onSubmit(): void {
