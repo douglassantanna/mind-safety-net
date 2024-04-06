@@ -23,4 +23,9 @@ public class Question : Entity
             _answers.Add(new Answer { Description = item.Description, Value = item.Value });
         }
     }
+
+    internal void SetEnableStatus(bool enableStatus)
+    {
+        Enabled = enableStatus;
+    }
 }

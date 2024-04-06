@@ -1,3 +1,4 @@
+import { SetQuestionEnableStatus } from './../../../core/models/question';
 import { Component, OnInit } from '@angular/core';
 import { QuestionService } from '../../../core/services/question.service';
 import { CommonModule } from '@angular/common';
@@ -54,9 +55,19 @@ export class ListQuestionsComponent implements OnInit {
     })
   }
 
-  toggleQuestionEnable(enable: boolean, index: number): void {
-    if (index >= 0 && index < this.questions.length) {
-      this.questions[index].enabled = enable;
-    }
+  toggleQuestionEnable(enable: boolean, index: number, question: Question): void {
+    const questionToEdit: SetQuestionEnableStatus = { questionId: question.id, enableStatus: enable };
+
+    this.questionService.setQuestionEnabledStatus(questionToEdit).subscribe({
+      next: (response) => {
+        console.log(response);
+        if (index >= 0 && index < this.questions.length) {
+          this.questions[index].enabled = enable;
+        }
+      },
+      error: (err) => {
+        console.log(err);
+      },
+    });
   }
 }

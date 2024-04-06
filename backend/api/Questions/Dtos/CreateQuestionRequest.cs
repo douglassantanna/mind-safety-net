@@ -4,9 +4,9 @@ namespace api.Questions.Dtos;
 public record CreateQuestionRequest(string Description, IEnumerable<CreateAnswerDTO> Answers);
 public record CreateAnswerDTO(string Description, int Value);
 
-public class CreatePatientRequestValidator : AbstractValidator<CreateQuestionRequest>
+public class CreateQuestionRequestValidator : AbstractValidator<CreateQuestionRequest>
 {
-    public CreatePatientRequestValidator()
+    public CreateQuestionRequestValidator()
     {
         RuleFor(x => x.Description)
             .MaximumLength(500)

@@ -11,7 +11,7 @@
       <div class="card-header">
         <span>{{ question.description }}</span>
         <mat-slide-toggle color="primary" [checked]="question.enabled"
-          (change)="toggleQuestionEnable($event.checked, i)">
+          (change)="toggleQuestionEnable($event.checked, i, question)">
           {{ question?.enabled ? 'Enabled' : 'Disabled' }}
         </mat-slide-toggle>
       </div>

@@ -21,6 +21,11 @@ export interface CreateAnswer {
   value: number;
 }
 
+export interface SetQuestionEnableStatus {
+  questionId: number;
+  enableStatus: boolean;
+}
+
 export interface Scores { scores: Score[] }
 export interface Score { id: number, value: number, description: string }
 

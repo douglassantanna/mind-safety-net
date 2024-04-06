@@ -10,13 +10,16 @@ public interface IQuestionService
 {
     Task<Response> CreateAsync(CreateQuestionRequest request);
     Task<IEnumerable<ViewQuestionDTO>> ListAsync();
+    Task<Response> SetEnableStatusAsync(SetQuestionEnableStatusRequest request);
 }
 public class QuestionService(
     DataContext context,
-    IValidator<CreateQuestionRequest> createQuestionvalidator) : IQuestionService
+    IValidator<CreateQuestionRequest> createQuestionvalidator,
+    IValidator<SetQuestionEnableStatusRequest> setQuestionEnableStatusvalidator) : IQuestionService
 {
     private readonly DataContext _context = context;
     private readonly IValidator<CreateQuestionRequest> _createQuestionvalidator = createQuestionvalidator;
+    private readonly IValidator<SetQuestionEnableStatusRequest> _setQuestionEnableStatusvalidator = setQuestionEnableStatusvalidator;
 
     public async Task<Response> CreateAsync(CreateQuestionRequest request)
     {
@@ -60,5 +63,26 @@ public class QuestionService(
             Console.WriteLine($"Error: {0}", ex.Message);
         }
         return questions;
+    }
+
+    public async Task<Response> SetEnableStatusAsync(SetQuestionEnableStatusRequest request)
+    {
+        var validationResult = await _setQuestionEnableStatusvalidator.ValidateAsync(request);
+        if (!validationResult.IsValid)
+        {
+            var errors = validationResult.Errors.Select(e => e.ErrorMessage);
+            return new Response("", false, errors);
+        }
+
+        var question = await _context.Questions.FirstOrDefaultAsync(q => q.Id == request.QuestionId);
+        if (question is null)
+            return new Response("Question not found.", false, 404);
+
+        question.SetEnableStatus(request.EnableStatus);
+
+        _context.Questions.Update(question);
+        await _context.SaveChangesAsync();
+
+        return new Response("", true, question.Id);
     }
 }

@@ -9,6 +9,12 @@ public static class QuestionApi
     {
         var group = routes.MapGroup("/api/questions");
 
+        group.MapGet("/list", async (IQuestionService questionService) =>
+       {
+           var questions = await questionService.ListAsync();
+           return Results.Ok(questions);
+       });
+
         group.MapPost("/create", async (IQuestionService questionService,
                                         [FromBody] CreateQuestionRequest request) =>
         {
@@ -18,11 +24,19 @@ public static class QuestionApi
              Results.UnprocessableEntity(response.Data);
         });
 
-        group.MapGet("/list", async (IQuestionService questionService) =>
-       {
-           var questions = await questionService.ListAsync();
-           return Results.Ok(questions);
-       });
+        group.MapPut("/set-enable-status", async (IQuestionService questionService,
+                                                 [FromBody] SetQuestionEnableStatusRequest request) =>
+        {
+            var response = await questionService.SetEnableStatusAsync(request);
+            if (response.Success)
+            {
+                return Results.Ok(response.Data);
+            }
+
+            return response.Data is 404 ?
+            Results.NotFound(response.Message) :
+            Results.UnprocessableEntity(response.Data);
+        });
 
         return group;
     }
