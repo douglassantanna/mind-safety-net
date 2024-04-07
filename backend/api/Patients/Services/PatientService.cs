@@ -28,7 +28,7 @@ public class PatientService(
 
         var questionsToAdd = _context.Questions
                                     .Include(q => q.Answers)
-                                    .Where(q => request.Questions.Select(x => x.Id).Contains(q.Id))
+                                    .Where(q => request.Questions.Select(x => x.QuestionId).Contains(q.Id))
                                     .ToList();
 
         if (!questionsToAdd.Any()) return new Response("No questions found!", false);

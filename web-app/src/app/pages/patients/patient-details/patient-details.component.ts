@@ -39,6 +39,7 @@ export class PatientDetailsComponent {
   }
 
   onSubmit() {
+    this.loading = true;
     const newPatient: NewPatient = {
       fullName: this.patientDetailsForm.get('fullName')?.value,
       email: this.patientDetailsForm.get('email')?.value,
@@ -46,12 +47,16 @@ export class PatientDetailsComponent {
       questions: this.data.questions
     };
 
-    console.log(newPatient);
-
-    // this.patientService.create(newPatient).subscribe({
-    //   next: (response) => { },
-    //   error: (err) => { },
-    // });
+    this.patientService.create(newPatient).subscribe({
+      next: (response) => {
+        this.dialogRef.close({ patientId: response });
+        this.loading = false;
+      },
+      error: (err) => {
+        console.log(err);
+        this.loading = false;
+      },
+    });
   }
   get emailFormControl() {
     return this.patientDetailsForm.get('email') as FormControl;

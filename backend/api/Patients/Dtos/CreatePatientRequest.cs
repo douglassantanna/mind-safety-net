@@ -4,7 +4,7 @@ namespace api.Patients.Dtos;
 public record CreatePatientRequest(string FullName,
                                    string Email,
                                    string PhoneNumber,
-                                   List<ViewQuestions> Questions);
+                                   List<CreateQuestionsDTO> Questions);
 
 public class CreatePatientRequestValidator : AbstractValidator<CreatePatientRequest>
 {
