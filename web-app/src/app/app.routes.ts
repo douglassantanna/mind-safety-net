@@ -6,6 +6,7 @@ import { PatientFormComponent } from './pages/patients/patient-form/patient-form
 import { CreateQuestionComponent } from './pages/questions/create-question/create-question.component';
 import { ListQuestionsComponent } from './pages/questions/list-questions/list-questions.component';
 import { ListPatientsComponent } from './pages/patients/list-patients/list-patients.component';
+import { PatientProfileComponent } from './pages/patients/patient-profile/patient-profile.component';
 
 export const routes: Routes = [
   { path: '', pathMatch: 'full', component: PatientFormComponent },
@@ -16,4 +17,5 @@ export const routes: Routes = [
   { path: 'questions/create', component: CreateQuestionComponent },
   { path: 'questions/list', component: ListQuestionsComponent },
   { path: 'patients/list', component: ListPatientsComponent },
+  { path: 'patients/profile/:id', component: PatientProfileComponent },
 ];

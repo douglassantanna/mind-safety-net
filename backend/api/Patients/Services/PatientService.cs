@@ -10,6 +10,7 @@ public interface IPatientService
 {
     Task<Response> CreateAsync(CreatePatientRequest request);
     Task<IEnumerable<ViewPatientDTO>> ListAsync(CancellationToken ct);
+    Task<Response> GetByIdAsync(int id);
 }
 public class PatientService(
     DataContext context,
@@ -53,12 +54,50 @@ public class PatientService(
         return new Response("", true, patient.Id);
     }
 
+    public async Task<Response> GetByIdAsync(int id)
+    {
+        try
+        {
+            var patient = await _context.Patients
+                                        .Include(x => x.Questions)
+                                            .ThenInclude(x => x.Answers)
+                                        .FirstOrDefaultAsync(p => p.Id == id);
+
+            if (patient is null) return new Response("Patient not found!", false, 404);
+
+            IEnumerable<ViewQuestions> questionsDto = patient.Questions.Select(q => new ViewQuestions(
+                                                            q.Id,
+                                                            q.Description,
+                                                            q.Answers.Select(a => new ViewAnswer(
+                                                                a.Id,
+                                                                a.Description,
+                                                                a.Value
+                                                            )).ToList()
+                                                        )).ToList();
+            ViewPatientProfileDTO patientDTO = new(
+                patient.Id,
+                patient.FullName,
+                patient.PhoneNumber,
+                patient.Email,
+                patient.DateSubmittedForm,
+                patient.Priority,
+                questionsDto);
+
+            return new Response("", true, patientDTO);
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error: {0}", ex.Message);
+            return new Response($"Error: {ex.Message}", false, 500);
+        }
+    }
+
     public async Task<IEnumerable<ViewPatientDTO>> ListAsync(CancellationToken ct)
     {
         IEnumerable<ViewPatientDTO> viewPatients = [];
         try
         {
-            viewPatients = await _context.Patients.Select(p => new ViewPatientDTO(p.FullName, p.Email, p.DateSubmittedForm, p.Priority)).ToListAsync(cancellationToken: ct);
+            viewPatients = await _context.Patients.Select(p => new ViewPatientDTO(p.Id, p.FullName, p.Email, p.DateSubmittedForm, p.Priority)).ToListAsync(cancellationToken: ct);
         }
         catch (Exception ex)
         {

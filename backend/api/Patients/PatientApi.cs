@@ -24,6 +24,12 @@ public static class PatientApi
            return Results.Ok(patients);
        });
 
+        group.MapGet("/get-by-id/{id}", async (int id, IPatientService patientService) =>
+       {
+           var patients = await patientService.GetByIdAsync(id);
+           return Results.Ok(patients);
+       });
+
         return group;
     }
 }

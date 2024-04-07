@@ -14,10 +14,21 @@ export interface NewPatient {
   phoneNumber?: string;
 }
 
-export interface ViewPatients {
+export interface ViewPatient {
+  id: number;
   fullName: string;
   email: string;
   priority: Priority;
+}
+
+export interface ViewPatientProfile {
+  id: number;
+  fullName: string;
+  email: string;
+  phoneNumber: string;
+  priority: Priority;
+  questions: Question[];
+  dateSubmittedForm: Date;
 }
 
 @Injectable({
@@ -31,7 +42,11 @@ export class PatientService {
     return this.http.post<CustomResponse>(`${url}/create`, user);
   }
 
-  list(): Observable<ViewPatients[]> {
-    return this.http.get<ViewPatients[]>(`${url}/list`);
+  list(): Observable<ViewPatient[]> {
+    return this.http.get<ViewPatient[]>(`${url}/list`);
+  }
+
+  getById(patientId: number): Observable<CustomResponse> {
+    return this.http.get<CustomResponse>(`${url}/get-by-id/${patientId}`);
   }
 }

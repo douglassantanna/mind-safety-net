@@ -5,7 +5,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatTableModule } from '@angular/material/table';
 import { PatientPriorityComponent } from '../../../layout/patient-priority/patient-priority.component';
 import { MatTooltipModule } from '@angular/material/tooltip';
-import { PatientService, ViewPatients } from '../../../core/services/patient.service';
+import { PatientService, ViewPatient } from '../../../core/services/patient.service';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-list-patients',
   standalone: true,
@@ -20,9 +21,11 @@ import { PatientService, ViewPatients } from '../../../core/services/patient.ser
   templateUrl: './list-patients.component.html'
 })
 export class ListPatientsComponent implements OnInit {
-  patients: ViewPatients[] = [];
-  displayedColumns = ['fullName', 'email', 'priority', 'actions'];
-  constructor(private patientService: PatientService) {
+  patients: ViewPatient[] = [];
+  displayedColumns = ['fullName', 'email', 'dateSubmittedForm', 'priority', 'actions'];
+  constructor(
+    private patientService: PatientService,
+    private router: Router) {
   }
   ngOnInit(): void {
     this.patientService.list().subscribe({
@@ -34,5 +37,7 @@ export class ListPatientsComponent implements OnInit {
       },
     })
   }
-  patientDetails(patient: any) { }
+  patientDetails(patient: ViewPatient) {
+    this.router.navigateByUrl(`/patients/profile/${patient.id}`);
+  }
 }
