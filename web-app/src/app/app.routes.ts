@@ -8,14 +8,14 @@ import { ListQuestionsComponent } from './pages/questions/list-questions/list-qu
 import { ListPatientsComponent } from './pages/patients/list-patients/list-patients.component';
 import { PatientProfileComponent } from './pages/patients/patient-profile/patient-profile.component';
 import { authGuard } from './core/guards/auth.guard';
+import { roleGuard } from './core/guards/role.guard';
 
 export const routes: Routes = [
   { path: '', pathMatch: 'full', component: PatientFormComponent },
   { path: 'login', component: LoginComponent },
-  { path: 'users/list', canActivate: [authGuard], component: ListUsersComponent },
-  { path: 'users/:id/edit', canActivate: [authGuard], component: CreateComponent },
-  { path: 'questions/create', canActivate: [authGuard], component: CreateQuestionComponent },
-  { path: 'questions/list', canActivate: [authGuard], component: ListQuestionsComponent },
-  { path: 'patients/list', canActivate: [authGuard], component: ListPatientsComponent },
-  { path: 'patients/profile/:id', canActivate: [authGuard], component: PatientProfileComponent },
+  { path: 'users/list', canActivate: [authGuard, roleGuard], data: { roles: ['admin', 'manager'] }, component: ListUsersComponent },
+  { path: 'questions/create', canActivate: [authGuard, roleGuard], data: { roles: ['admin', 'manager'] }, component: CreateQuestionComponent },
+  { path: 'questions/list', canActivate: [authGuard, roleGuard], data: { roles: ['admin', 'manager'] }, component: ListQuestionsComponent },
+  { path: 'patients/list', canActivate: [authGuard, roleGuard], data: { roles: ['admin', 'manager'] }, component: ListPatientsComponent },
+  { path: 'patients/profile/:id', canActivate: [authGuard, roleGuard], data: { roles: ['admin', 'manager'] }, component: PatientProfileComponent },
 ];

@@ -6,6 +6,7 @@ import { BehaviorSubject, Observable, tap } from 'rxjs';
 import { environment } from '../../../environments/environment.development';
 import { LocalStorageService } from './local-storage.service';
 import { Router } from '@angular/router';
+import { jwtDecode } from "jwt-decode";
 const url = `${environment.apiUrl}/authentication`;
 
 @Injectable({
@@ -41,6 +42,21 @@ export class AuthenticationService {
     this.localStorageService.removeToken();
     this.isLoggedIn$.next(false);
     this.router.navigateByUrl('login');
+  }
+
+  get role(): string {
+    try {
+      const token = this.localStorageService.getToken();
+      const decodedToken = jwtDecode(token as string) as {
+        role: string
+      };
+
+      if (decodedToken)
+        return decodedToken.role.toLocaleLowerCase();
+    } catch (error) {
+      console.log(error);
+    }
+    return '';
   }
 
   private get token(): string {
