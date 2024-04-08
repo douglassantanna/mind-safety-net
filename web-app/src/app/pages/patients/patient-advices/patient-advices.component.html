@@ -10,7 +10,7 @@
   </div>
 
   <section class="advices">
-    @for (advice of advices; track $index) {
+    @for (advice of filteredAdvices; track $index) {
     <div class="card">
       <p class="card-header">
         <strong>{{advice.title }}</strong>.
@@ -31,6 +31,7 @@
     align-items: center;
     justify-content: center;
     gap: 10px;
+    margin-bottom: 10px;
   }
 
   .advices {
@@ -56,5 +57,16 @@
     width: 80%;
     height: 100%;
     margin-top: 10px;
+  }
+
+  @media (max-width: 768px) {
+    .advices {
+      flex-direction: column;
+
+      .card {
+        width: 80%;
+      }
+    }
+
   }
 </style>
