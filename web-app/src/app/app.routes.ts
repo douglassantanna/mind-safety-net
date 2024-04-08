@@ -7,15 +7,15 @@ import { CreateQuestionComponent } from './pages/questions/create-question/creat
 import { ListQuestionsComponent } from './pages/questions/list-questions/list-questions.component';
 import { ListPatientsComponent } from './pages/patients/list-patients/list-patients.component';
 import { PatientProfileComponent } from './pages/patients/patient-profile/patient-profile.component';
+import { authGuard } from './core/guards/auth.guard';
 
 export const routes: Routes = [
   { path: '', pathMatch: 'full', component: PatientFormComponent },
-  { path: 'users/list', component: ListUsersComponent },
-  { path: 'users/create', component: CreateComponent },
-  { path: 'users/:id/edit', component: CreateComponent },
   { path: 'login', component: LoginComponent },
-  { path: 'questions/create', component: CreateQuestionComponent },
-  { path: 'questions/list', component: ListQuestionsComponent },
-  { path: 'patients/list', component: ListPatientsComponent },
-  { path: 'patients/profile/:id', component: PatientProfileComponent },
+  { path: 'users/list', canActivate: [authGuard], component: ListUsersComponent },
+  { path: 'users/:id/edit', canActivate: [authGuard], component: CreateComponent },
+  { path: 'questions/create', canActivate: [authGuard], component: CreateQuestionComponent },
+  { path: 'questions/list', canActivate: [authGuard], component: ListQuestionsComponent },
+  { path: 'patients/list', canActivate: [authGuard], component: ListPatientsComponent },
+  { path: 'patients/profile/:id', canActivate: [authGuard], component: PatientProfileComponent },
 ];
