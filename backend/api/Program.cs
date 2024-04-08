@@ -46,9 +46,9 @@ app.UseCors("Policy");
 
 app.MapPatients();
 
-app.MapQuestions().RequireAuthorization("admin").RequireAuthorization("manager");
+app.MapQuestions();
 
-app.MapUsers().RequireAuthorization("admin").RequireAuthorization("manager");
+app.MapUsers();
 
 app.MapAuthentication();
 

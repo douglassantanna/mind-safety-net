@@ -27,7 +27,7 @@ public class TokenService(IOptions<JwtSettings> jwtSettings) : ITokenService
                 new(ClaimTypes.Email, user.Email),
                 new(ClaimTypes.NameIdentifier, user.Id.ToString()),
                 new(ClaimTypes.Name, user.FullName),
-                new(ClaimTypes.Role, user.Role.ToString()),
+                new(ClaimTypes.Role, user.Role.ToString().ToLower()),
             }),
             Expires = DateTime.UtcNow.AddDays(1),
             Issuer = _jwtSettings.Issuer,
