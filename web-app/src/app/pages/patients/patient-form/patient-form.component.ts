@@ -7,6 +7,7 @@ import { SubmitButtonComponent } from '../../../layout/submit-button/submit-butt
 import { MatDialog } from '@angular/material/dialog';
 import { PatientDetailsComponent } from '../patient-details/patient-details.component';
 import { QuestionService } from '../../../core/services/question.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-patient-form',
@@ -28,6 +29,7 @@ export class PatientFormComponent implements OnInit {
     public authService: AuthenticationService,
     private dialog: MatDialog,
     private questionService: QuestionService,
+    private router: Router,
     private fb: FormBuilder) {
     this.questionsForm = this.fb.group({
       questions: this.fb.array([])
@@ -76,7 +78,9 @@ export class PatientFormComponent implements OnInit {
     })
 
     dialogRef.afterClosed().subscribe((result) => {
-      if (result) console.log('ok');
+      if (result) {
+        this.router.navigateByUrl(`patients/${result.patientId}/advices`);
+      }
     })
   }
   get questionsArray() { return this.questionsForm.get('questions') as FormArray; }

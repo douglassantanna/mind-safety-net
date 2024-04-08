@@ -6,6 +6,7 @@ import { MatInputModule } from '@angular/material/input';
 import { SubmitButtonComponent } from '../../../layout/submit-button/submit-button.component';
 import { PatientService, NewPatient } from '../../../core/services/patient.service';
 import { MatButtonModule } from '@angular/material/button';
+import { Route, Router } from '@angular/router';
 
 @Component({
   selector: 'app-patient-details',
@@ -28,6 +29,7 @@ export class PatientDetailsComponent {
     private fb: FormBuilder,
     private dialogRef: MatDialogRef<PatientDetailsComponent>,
     private patientService: PatientService,
+    private router: Router,
     @Inject(MAT_DIALOG_DATA) public data: any,
   ) {
     this.patientDetailsForm = this.fb.group({
@@ -49,7 +51,8 @@ export class PatientDetailsComponent {
 
     this.patientService.create(newPatient).subscribe({
       next: (response) => {
-        this.dialogRef.close({ patientId: response });
+        const patientId = response;
+        this.dialogRef.close({ patientId });
         this.loading = false;
       },
       error: (err) => {

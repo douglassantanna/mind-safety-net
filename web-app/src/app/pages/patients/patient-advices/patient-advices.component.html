@@ -1,1 +1,61 @@
-<p>patient-advices works!</p>
+<main>
+  <div class="card">
+    <p class="card-header">
+      Your priority is considered <strong>{{ patient.priority == 1 ? 'Low' : this.patient.priority == 2 ? 'Medium' :
+        'High'}}</strong>.
+    </p>
+    <p>
+      Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit...
+    </p>
+  </div>
+
+  <section class="advices">
+    @for (advice of advices; track $index) {
+    <div class="card">
+      <p class="card-header">
+        Your priority is considered <strong>{{ patient.priority == 1 ? 'Low' : this.patient.priority == 2 ? 'Medium' :
+          'High'}}</strong>.
+      </p>
+      <p>
+        {{advice.description}}
+      </p>
+    </div>
+    }
+  </section>
+
+</main>
+
+<style>
+  main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+  }
+
+  .advices {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+
+    .card {
+      width: calc(50% - 10%);
+      height: 100%;
+    }
+  }
+
+  .card {
+    background-color: #ffffff;
+    border: 1px solid #cccccc;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    width: 80%;
+    height: 100%;
+    margin-top: 10px;
+  }
+</style>

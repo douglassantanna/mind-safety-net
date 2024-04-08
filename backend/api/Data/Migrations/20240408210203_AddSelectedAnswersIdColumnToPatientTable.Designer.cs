@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using api.Data;
 
@@ -10,9 +11,11 @@ using api.Data;
 namespace api.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20240408210203_AddSelectedAnswersIdColumnToPatientTable")]
+    partial class AddSelectedAnswersIdColumnToPatientTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "8.0.2");
@@ -44,28 +47,13 @@ namespace api.Migrations
                     b.Property<int>("Priority")
                         .HasColumnType("INTEGER");
 
+                    b.Property<string>("SelectedAnswerIds")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
                     b.HasKey("Id");
 
                     b.ToTable("Patients");
-                });
-
-            modelBuilder.Entity("api.Patients.Models.SelectedAnswerId", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("AnswerId")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int?>("PatientId")
-                        .HasColumnType("INTEGER");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("PatientId");
-
-                    b.ToTable("SelectedAnswerIds");
                 });
 
             modelBuilder.Entity("api.Questions.Models.Answer", b =>
@@ -147,13 +135,6 @@ namespace api.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("api.Patients.Models.SelectedAnswerId", b =>
-                {
-                    b.HasOne("api.Patients.Models.Patient", null)
-                        .WithMany("SelectedAnswerIds")
-                        .HasForeignKey("PatientId");
-                });
-
             modelBuilder.Entity("api.Questions.Models.Answer", b =>
                 {
                     b.HasOne("api.Questions.Models.Question", null)
@@ -171,8 +152,6 @@ namespace api.Migrations
             modelBuilder.Entity("api.Patients.Models.Patient", b =>
                 {
                     b.Navigation("Questions");
-
-                    b.Navigation("SelectedAnswerIds");
                 });
 
             modelBuilder.Entity("api.Questions.Models.Question", b =>

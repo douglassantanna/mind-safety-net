@@ -8,11 +8,13 @@ public class Patient : Entity
       string fullName,
       string email,
       string phoneNumber,
-      IEnumerable<Question> questions)
+      IEnumerable<Question> questions,
+      List<SelectedAnswerId> selectedAnswerIds)
   {
     FullName = fullName;
     Email = email;
     PhoneNumber = phoneNumber;
+    SelectedAnswerIds = selectedAnswerIds;
     _questions.AddRange(questions);
     SetPriority(_questions);
   }
@@ -20,7 +22,12 @@ public class Patient : Entity
   { }
   private void SetPriority(IEnumerable<Question> _questionsToSum)
   {
-    int sum = _questionsToSum.Sum(q => q.Answers.Sum(a => a.Value));
+
+    var selectedAnswers = _questionsToSum
+                          .SelectMany(q => q.Answers)
+                          .Where(a => SelectedAnswerIds.Select(x => x.AnswerId).Contains(a.Id));
+
+    int sum = selectedAnswers.Sum(x => x.Value);
 
     Priority = sum switch
     {
@@ -33,8 +40,13 @@ public class Patient : Entity
   public string FullName { get; set; } = string.Empty;
   public string Email { get; set; } = string.Empty;
   public string PhoneNumber { get; set; } = string.Empty;
+  public List<SelectedAnswerId> SelectedAnswerIds { get; set; } = [];
   private readonly List<Question> _questions = [];
   public IReadOnlyCollection<Question> Questions => _questions.AsReadOnly();
   public DateTime DateSubmittedForm { get; private set; }
   public Priority Priority { get; private set; }
+}
+public class SelectedAnswerId : Entity
+{
+  public int AnswerId { get; set; }
 }

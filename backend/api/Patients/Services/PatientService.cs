@@ -32,26 +32,34 @@ public class PatientService(
                                     .Where(q => request.Questions.Select(x => x.QuestionId).Contains(q.Id))
                                     .ToList();
 
+        List<int> selectedAnswersId = request.Questions.Select(q => q.AnswerId).ToList();
+
+        List<SelectedAnswerId> answersId = [];
+        foreach (var item in selectedAnswersId)
+        {
+            answersId.Add(new SelectedAnswerId { AnswerId = item });
+        }
         if (!questionsToAdd.Any()) return new Response("No questions found!", false);
 
         var patient = new Patient(
             request.FullName,
             request.Email,
             request.PhoneNumber,
-            questionsToAdd
+            questionsToAdd,
+            answersId
         );
 
         try
         {
             _context.Patients.Add(patient);
             await _context.SaveChangesAsync();
+            return new Response("", true, patient.Id);
         }
         catch (Exception ex)
         {
             Console.WriteLine($"Error: {0}", ex.Message);
+            return new Response($"Error: {ex.Message}", false, 500);
         }
-
-        return new Response("", true, patient.Id);
     }
 
     public async Task<Response> GetByIdAsync(int id)
