@@ -22,13 +22,13 @@ public static class PatientApi
        {
            var patients = await patientService.ListAsync(default);
            return Results.Ok(patients);
-       });
+       }).RequireAuthorization("admin").RequireAuthorization("manager");
 
         group.MapGet("/get-by-id/{id}", async (int id, IPatientService patientService) =>
        {
            var patients = await patientService.GetByIdAsync(id);
            return Results.Ok(patients);
-       });
+       }).RequireAuthorization("admin").RequireAuthorization("manager");
 
         return group;
     }

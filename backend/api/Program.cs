@@ -23,7 +23,6 @@ builder.Services.AddScoped<IPatientService, PatientService>();
 builder.Services.AddScoped<IQuestionService, QuestionService>();
 builder.Services.AddScoped<IAuthenticationService, AuthenticationService>();
 builder.Services.AddTokenService(builder.Configuration);
-builder.Services.AddAuthorization();
 
 builder.Services.AddDbContext<DataContext>(options =>
 {
@@ -47,9 +46,9 @@ app.UseCors("Policy");
 
 app.MapPatients();
 
-app.MapQuestions();
+app.MapQuestions().RequireAuthorization("admin").RequireAuthorization("manager");
 
-app.MapUsers();
+app.MapUsers().RequireAuthorization("admin").RequireAuthorization("manager");
 
 app.MapAuthentication();
 

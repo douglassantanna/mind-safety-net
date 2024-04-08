@@ -24,5 +24,6 @@ export interface NewUser {
 
 export enum Role {
   Admin = 1,
-  Manager
+  Manager,
+  Patient
 }

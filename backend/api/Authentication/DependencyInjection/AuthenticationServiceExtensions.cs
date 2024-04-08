@@ -34,6 +34,13 @@ public static class AuthenticationServiceExtensions
                 };
             });
 
+        services.AddAuthorization(options =>
+        {
+            options.AddPolicy("admin", policy => policy.RequireRole("admin"));
+            options.AddPolicy("manager", policy => policy.RequireRole("manager"));
+            options.AddPolicy("patient", policy => policy.RequireRole("patient"));
+        });
+
         services.AddSingleton<ITokenService, TokenService>();
         return services;
     }
