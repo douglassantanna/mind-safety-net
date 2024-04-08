@@ -1,10 +1,24 @@
 <main>
-  <h2>{{ patient.fullName }}'s Profile</h2>
-  <p><strong>Email:</strong> {{ patient.email }}</p>
-  <p><strong>Phone Number:</strong> {{ patient.phoneNumber }}</p>
-  <p><strong>Date Submitted:</strong> {{ patient.dateSubmittedForm | date:'medium' }}</p>
-  <p><strong>Priority:</strong> <app-patient-priority [priority]="patient.priority"></app-patient-priority></p>
-  <hr>
+  <div>
+    <h2>{{ patient.fullName }}'s Profile</h2>
+  </div>
+
+  <div>
+    <strong>Email:</strong> {{ patient.email }}
+  </div>
+
+  <div>
+    <strong>Phone Number:</strong> {{ patient.phoneNumber }}
+  </div>
+
+  <div>
+    <strong>Date Submitted:</strong> {{ patient.dateSubmittedForm | date:'medium' }}
+  </div>
+
+  <div class="patient-priority">
+    <strong>Priority:</strong> <app-patient-priority [priority]="patient.priority"></app-patient-priority>
+  </div>
+
 
   @for (question of patient.questions; track $index) {
   <div class="card">
@@ -31,6 +45,15 @@
     background-color: #f9f9f9;
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .patient-priority {
+    display: flex;
+    align-items: center;
+    gap: 10px;
   }
 
   .question {

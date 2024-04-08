@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { Priority } from '../../core/models/patients';
 import { CommonModule } from '@angular/common';
 
@@ -38,14 +38,19 @@ import { CommonModule } from '@angular/common';
   }
   `]
 })
-export class PatientPriorityComponent implements OnInit {
+export class PatientPriorityComponent implements OnChanges {
   @Input() priority: Priority = Priority.Undefined;
   priorityString: string = '';
 
-  ngOnInit(): void {
-    this.priorityString = this.getPriorityString(this.priority);
+  ngOnChanges(changes: SimpleChanges): void {
+    if ('priority' in changes) {
+      this.priorityString = this.getPriorityString(changes['priority'].currentValue);
+    }
   }
+
   getPriorityString(priority: Priority): string {
+    console.log(priority);
+
     switch (priority) {
       case Priority.Low:
         return 'Low';
