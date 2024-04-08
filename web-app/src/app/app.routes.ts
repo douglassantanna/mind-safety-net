@@ -9,6 +9,7 @@ import { ListPatientsComponent } from './pages/patients/list-patients/list-patie
 import { PatientProfileComponent } from './pages/patients/patient-profile/patient-profile.component';
 import { authGuard } from './core/guards/auth.guard';
 import { roleGuard } from './core/guards/role.guard';
+import { PatientAdvicesComponent } from './pages/patients/patient-advices/patient-advices.component';
 
 export const routes: Routes = [
   { path: '', pathMatch: 'full', component: PatientFormComponent },
@@ -18,4 +19,5 @@ export const routes: Routes = [
   { path: 'questions/list', canActivate: [authGuard, roleGuard], data: { roles: ['admin', 'manager'] }, component: ListQuestionsComponent },
   { path: 'patients/list', canActivate: [authGuard, roleGuard], data: { roles: ['admin', 'manager'] }, component: ListPatientsComponent },
   { path: 'patients/profile/:id', canActivate: [authGuard, roleGuard], data: { roles: ['admin', 'manager'] }, component: PatientProfileComponent },
+  { path: 'patients/:id/advices', canActivate: [authGuard, roleGuard], data: { roles: ['admin', 'manager'] }, component: PatientAdvicesComponent },
 ];
