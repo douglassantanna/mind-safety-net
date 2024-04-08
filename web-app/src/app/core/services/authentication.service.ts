@@ -59,6 +59,21 @@ export class AuthenticationService {
     return '';
   }
 
+  get userId(): string {
+    try {
+      const token = this.localStorageService.getToken();
+      const decodedToken = jwtDecode(token as string) as {
+        nameid: string
+      };
+
+      if (decodedToken)
+        return decodedToken.nameid.toLocaleLowerCase();
+    } catch (error) {
+      console.log(error);
+    }
+    return '';
+  }
+
   private get token(): string {
     return this.localStorageService.getToken();
   }

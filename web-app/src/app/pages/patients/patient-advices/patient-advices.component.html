@@ -13,8 +13,7 @@
     @for (advice of advices; track $index) {
     <div class="card">
       <p class="card-header">
-        Your priority is considered <strong>{{ patient.priority == 1 ? 'Low' : this.patient.priority == 2 ? 'Medium' :
-          'High'}}</strong>.
+        <strong>{{advice.title }}</strong>.
       </p>
       <p>
         {{advice.description}}

@@ -8,7 +8,7 @@ import { MatListModule } from '@angular/material/list';
 import { MatIconModule } from '@angular/material/icon';
 import { Observable } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
-import { ActivatedRoute, RouterModule } from '@angular/router';
+import { RouterModule } from '@angular/router';
 import { AuthenticationService } from '../../core/services/authentication.service';
 
 @Component({
@@ -29,14 +29,10 @@ import { AuthenticationService } from '../../core/services/authentication.servic
 export class NavComponent implements OnInit {
   private breakpointObserver = inject(BreakpointObserver);
   private authService = inject(AuthenticationService);
-  private route = inject(ActivatedRoute);
-  private authservice = inject(AuthenticationService);
   isPatient = false;
-  patientId = 0;
   ngOnInit(): void {
     if (this.authService.role === 'admin') {
       this.isPatient = true;
-
     }
   }
 

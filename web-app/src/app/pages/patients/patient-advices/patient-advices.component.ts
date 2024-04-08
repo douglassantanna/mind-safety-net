@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { PatientService, ViewPatientProfile } from '../../../core/services/patient.service';
-import { ActivatedRoute } from '@angular/router';
 import { NgFor } from '@angular/common';
+import { AuthenticationService } from '../../../core/services/authentication.service';
 
 @Component({
   selector: 'app-patient-advices',
@@ -33,22 +33,18 @@ export class PatientAdvicesComponent implements OnInit {
   ];
   constructor(
     private patientService: PatientService,
-    private route: ActivatedRoute) { }
+    private authService: AuthenticationService) { }
 
   ngOnInit(): void {
-    this.route.params.subscribe(params => {
-      const id = params['id'];
-      console.log('id', id);
-
-      this.patientService.getById(id).subscribe({
-        next: (response) => {
-          this.patient = response.data;
-        },
-        error: (err) => {
-          console.log(err);
-        },
-      })
-    });
+    const id = Number(this.authService.userId);
+    this.patientService.getById(id).subscribe({
+      next: (response) => {
+        this.patient = response.data;
+      },
+      error: (err) => {
+        console.log(err);
+      },
+    })
   }
 
 }

@@ -19,5 +19,5 @@ export const routes: Routes = [
   { path: 'questions/list', canActivate: [authGuard, roleGuard], data: { roles: ['admin', 'manager'] }, component: ListQuestionsComponent },
   { path: 'patients/list', canActivate: [authGuard, roleGuard], data: { roles: ['admin', 'manager'] }, component: ListPatientsComponent },
   { path: 'patients/profile/:id', canActivate: [authGuard, roleGuard], data: { roles: ['admin', 'manager'] }, component: PatientProfileComponent },
-  { path: 'patients/:id/advices', canActivate: [authGuard, roleGuard], data: { roles: ['admin', 'manager'] }, component: PatientAdvicesComponent },
+  { path: 'patients/advices', canActivate: [authGuard, roleGuard], data: { roles: ['admin', 'manager'] }, component: PatientAdvicesComponent },
 ];
