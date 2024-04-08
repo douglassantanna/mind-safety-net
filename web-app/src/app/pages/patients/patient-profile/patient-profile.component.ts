@@ -1,17 +1,19 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 import { PatientService, ViewPatientProfile } from '../../../core/services/patient.service';
 import { CommonModule } from '@angular/common';
 import { PatientPriorityComponent } from '../../../layout/patient-priority/patient-priority.component';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-patient-profile',
   standalone: true,
   imports: [
     CommonModule,
-    PatientPriorityComponent],
+    PatientPriorityComponent,
+    MatIconModule,
+    RouterLink],
   templateUrl: './patient-profile.component.html',
-  styleUrl: './patient-profile.component.scss'
 })
 export class PatientProfileComponent implements OnInit {
   patient: ViewPatientProfile = {} as ViewPatientProfile;
@@ -26,8 +28,6 @@ export class PatientProfileComponent implements OnInit {
       this.patientService.getById(id).subscribe({
         next: (response) => {
           this.patient = response.data;
-          console.log(response.data);
-
         },
         error: (err) => {
           console.log(err);

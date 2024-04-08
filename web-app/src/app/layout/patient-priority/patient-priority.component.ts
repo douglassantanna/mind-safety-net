@@ -49,8 +49,6 @@ export class PatientPriorityComponent implements OnChanges {
   }
 
   getPriorityString(priority: Priority): string {
-    console.log(priority);
-
     switch (priority) {
       case Priority.Low:
         return 'Low';

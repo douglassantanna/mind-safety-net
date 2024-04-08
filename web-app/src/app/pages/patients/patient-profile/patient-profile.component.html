@@ -1,4 +1,11 @@
 <main>
+  <header>
+    <a mat-icon-button [routerLink]="['/patients/list']">
+      <mat-icon>arrow_back</mat-icon>
+    </a>
+    <span>Patients</span>
+  </header>
+
   <div>
     <h2>{{ patient.fullName }}'s Profile</h2>
   </div>
@@ -48,6 +55,18 @@
     display: flex;
     flex-direction: column;
     gap: 10px;
+  }
+
+
+  header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    justify-content: flex-start;
+
+    span {
+      font-size: x-large;
+    }
   }
 
   .patient-priority {
