@@ -1,1 +1,43 @@
-<p>safety-plan works!</p>
+<main>
+
+  @for (item of plans; track $index) {
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>{{ item.title }}</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <form class="right" [formGroup]="post" (ngSubmit)="submitPost()">
+        <div class="text">
+          <mat-form-field appearance="outline">
+            <textarea matInput maxlength="1000" placeholder="Description..."
+              formControlName="{{item.message}}"></textarea>
+          </mat-form-field>
+        </div>
+      </form>
+    </mat-card-content>
+    <mat-card-actions align="end">
+      <button mat-raised-button color="primary">Save</button>
+    </mat-card-actions>
+  </mat-card>
+  }
+
+</main>
+
+<style>
+  main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 0 10%;
+  }
+
+  mat-card {
+    width: 100%;
+  }
+
+  mat-form-field {
+    width: 100%;
+  }
+</style>
