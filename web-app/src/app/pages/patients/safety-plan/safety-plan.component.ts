@@ -7,6 +7,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { PatientService } from '../../../core/services/patient.service';
 import { SubmitButtonComponent } from '../../../layout/submit-button/submit-button.component';
+import { AuthenticationService } from '../../../core/services/authentication.service';
 
 @Component({
   selector: 'app-safety-plan',
@@ -25,9 +26,12 @@ import { SubmitButtonComponent } from '../../../layout/submit-button/submit-butt
 export class SafetyPlanComponent implements OnInit {
   loading = false;
   safetyPlanForm!: FormGroup;
+  patientId = 0;
 
-
-  constructor(private fb: FormBuilder, private patientService: PatientService) {
+  constructor(
+    private fb: FormBuilder,
+    private patientService: PatientService,
+    private authService: AuthenticationService) {
     this.safetyPlanForm = this.fb.group({
       warningSigns: ['', Validators.maxLength(1000)],
       distractions: ['', Validators.maxLength(1000)],
@@ -39,6 +43,11 @@ export class SafetyPlanComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.getPatientId();
+  }
+
+  private getPatientId() {
+    this.patientId = Number(this.authService.userId);
   }
 
   submitPost() {
@@ -50,13 +59,17 @@ export class SafetyPlanComponent implements OnInit {
       reasonsForLiving: this.safetyPlanForm.get('reasonsForLiving')?.value,
       situationFever: this.safetyPlanForm.get('situationFever')?.value,
       professionalSupport: this.safetyPlanForm.get('professionalSupport')?.value,
-      patientId: 0
+      patientId: this.patientId
     };
     this.patientService.updateSafetyPlan(request).subscribe({
       next: (response) => {
+        console.log(response);
+
         this.loading = false;
       },
       error: (err) => {
+        console.log(err);
+
         this.loading = false;
       },
     })
