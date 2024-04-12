@@ -45,6 +45,7 @@ public class Patient : Entity
   public IReadOnlyCollection<Question> Questions => _questions.AsReadOnly();
   public DateTime DateSubmittedForm { get; private set; }
   public Priority Priority { get; private set; }
+  public SafetyPlan SafetyPlan { get; set; } = new();
 }
 public class SelectedAnswerId : Entity
 {
