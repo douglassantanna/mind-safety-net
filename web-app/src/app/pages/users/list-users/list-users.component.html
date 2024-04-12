@@ -1,4 +1,4 @@
-<section>
+<main>
   <header>
     <h2>Users</h2>
     <button mat-raised-button color="primary" (click)="newUser()">New User</button>
@@ -45,16 +45,50 @@
     <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
   </table>
-</section>
+</main>
 
 <style>
-  section {
+  main {
     padding: 10px;
+  }
+
+  table {
+    width: 100%;
+    overflow-x: auto;
+    display: block;
   }
 
   header {
     display: flex;
     justify-content: space-between;
     align-items: center;
+  }
+
+  @media screen and (min-width: 768px) {
+    table {
+      max-height: 500px;
+    }
+
+    .mat-column-fullName,
+    .mat-column-email,
+    .mat-column-role,
+    .mat-column-active,
+    .mat-column-actions {
+      width: 300px;
+    }
+  }
+
+  @media screen and (min-width: 992px) {
+    table {
+      max-height: 600px;
+    }
+
+    .mat-column-fullName,
+    .mat-column-email,
+    .mat-column-role,
+    .mat-column-active,
+    .mat-column-actions {
+      width: 370px;
+    }
   }
 </style>

@@ -15,6 +15,7 @@ public class Patient : Entity
     Email = email;
     PhoneNumber = phoneNumber;
     SelectedAnswerIds = selectedAnswerIds;
+    DateSubmittedForm = DateTime.Now;
     _questions.AddRange(questions);
     SetPriority(_questions);
   }

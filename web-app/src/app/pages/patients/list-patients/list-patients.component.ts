@@ -22,7 +22,7 @@ import { Router } from '@angular/router';
 })
 export class ListPatientsComponent implements OnInit {
   patients: ViewPatient[] = [];
-  displayedColumns = ['fullName', 'email', 'dateSubmittedForm', 'priority', 'actions'];
+  displayedColumns = ['fullName', 'email', 'dateSubmittedForm', 'priority', 'scheduleAppointment', 'actions'];
   constructor(
     private patientService: PatientService,
     private router: Router) {
@@ -40,4 +40,6 @@ export class ListPatientsComponent implements OnInit {
   patientDetails(patient: ViewPatient) {
     this.router.navigateByUrl(`/patients/profile/${patient.id}`);
   }
+
+  scheduleAppointment(patient: ViewPatient) { }
 }
