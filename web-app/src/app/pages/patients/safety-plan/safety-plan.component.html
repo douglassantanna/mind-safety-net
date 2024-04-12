@@ -1,43 +1,70 @@
 <main>
+  <header>
+    <h1>My Safety Plan</h1>
+  </header>
 
-  @for (item of plans; track $index) {
-  <mat-card>
-    <mat-card-header>
-      <mat-card-title>{{ item.title }}</mat-card-title>
-    </mat-card-header>
-    <mat-card-content>
-      <form class="right" [formGroup]="post" (ngSubmit)="submitPost()">
-        <div class="text">
-          <mat-form-field appearance="outline">
-            <textarea matInput maxlength="1000" placeholder="Description..."
-              formControlName="{{item.message}}"></textarea>
-          </mat-form-field>
-        </div>
-      </form>
-    </mat-card-content>
-    <mat-card-actions align="end">
-      <button mat-raised-button color="primary">Save</button>
-    </mat-card-actions>
-  </mat-card>
-  }
+  <form [formGroup]="safetyPlanForm" (ngSubmit)="submitPost()">
+    <div class="input">
+      <mat-label>My warning signs</mat-label>
+      <mat-form-field appearance="outline">
+        <textarea matInput formControlName="warningSigns" maxlength="1000" placeholder="Description..."></textarea>
+      </mat-form-field>
+    </div>
 
+    <div class="input">
+      <mat-label>My distractions</mat-label>
+      <mat-form-field appearance="outline">
+        <textarea matInput formControlName="distractions" maxlength="1000" placeholder="Description..."></textarea>
+      </mat-form-field>
+    </div>
+
+    <div class="input">
+      <mat-label>My reasons for living</mat-label>
+      <mat-form-field appearance="outline">
+        <textarea matInput formControlName="reasonsForLiving" maxlength="1000" placeholder="Description..."></textarea>
+      </mat-form-field>
+    </div>
+
+    <div class="input">
+      <mat-label>Making my situation safer</mat-label>
+      <mat-form-field appearance="outline">
+        <textarea matInput formControlName="situationFever" maxlength="1000" placeholder="Description..."></textarea>
+      </mat-form-field>
+    </div>
+
+    <div class="input">
+      <mat-label>Professional support</mat-label>
+      <mat-form-field appearance="outline">
+        <textarea matInput formControlName="professionalSupport" maxlength="1000"
+          placeholder="Description..."></textarea>
+      </mat-form-field>
+    </div>
+
+    <button mat-raised-button type="submit" color="primary">Save</button>
+  </form>
 </main>
 
 <style>
+  form {
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    gap: 10px;
+  }
+
   main {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 10px;
     padding: 0 10%;
-  }
-
-  mat-card {
-    width: 100%;
   }
 
   mat-form-field {
     width: 100%;
+  }
+
+  mat-label {
+    font-size: 20px;
   }
 </style>

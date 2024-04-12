@@ -24,36 +24,21 @@ import { MatCardModule } from '@angular/material/card';
 })
 export class SafetyPlanComponent implements OnInit {
   private readonly fb = inject(FormBuilder);
-  post = this.fb.group({
-    message: ['', [Validators.required, Validators.maxLength(256)]]
+  safetyPlanForm = this.fb.group({
+    warningSigns: ['', [Validators.required, Validators.maxLength(1000)]],
+    distractions: ['', [Validators.required, Validators.maxLength(1000)]],
+    reasonsForLiving: ['', [Validators.required, Validators.maxLength(1000)]],
+    situationFever: ['', [Validators.required, Validators.maxLength(1000)]],
+    professionalSupport: ['', [Validators.required, Validators.maxLength(1000)]],
   });
   name = 'Douglas'
-  plans = [
-    {
-      title: "My warning signs",
-      message: ""
-    },
-    {
-      title: "My distractions",
-      message: ""
-    },
-    {
-      title: "Professional support",
-      message: ""
-    },
-    {
-      title: "Making my situation safer",
-      message: ""
-    },
-    {
-      title: "My reasons for living",
-      message: ""
-    },
-  ];
 
   ngOnInit(): void {
   }
 
-  submitPost() { }
+  submitPost() {
+    console.log(this.safetyPlanForm.value);
+
+  }
 
 }
