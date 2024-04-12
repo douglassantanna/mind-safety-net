@@ -31,6 +31,15 @@ export interface ViewPatientProfile {
   dateSubmittedForm: Date;
 }
 
+export interface UpdateSafetyPlan {
+  warningSigns: string;
+  distractions: string;
+  reasonsForLiving: string;
+  situationFever: string;
+  professionalSupport: string;
+  patientId: number;
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -38,8 +47,12 @@ export class PatientService {
 
   constructor(private http: HttpClient) { }
 
-  create(user: NewPatient): Observable<CustomResponse> {
-    return this.http.post<CustomResponse>(`${url}/create`, user);
+  create(patient: NewPatient): Observable<CustomResponse> {
+    return this.http.post<CustomResponse>(`${url}/create`, patient);
+  }
+
+  updateSafetyPlan(request: UpdateSafetyPlan): Observable<CustomResponse> {
+    return this.http.put<CustomResponse>(`${url}/update-safety-plan`, request);
   }
 
   list(): Observable<ViewPatient[]> {

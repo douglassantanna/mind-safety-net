@@ -3,7 +3,7 @@
     <h1>My Safety Plan</h1>
   </header>
 
-  <form [formGroup]="safetyPlanForm" (ngSubmit)="submitPost()">
+  <form [formGroup]="safetyPlanForm">
     <div class="input">
       <mat-label>My warning signs</mat-label>
       <mat-form-field appearance="outline">
@@ -40,7 +40,8 @@
       </mat-form-field>
     </div>
 
-    <button mat-raised-button type="submit" color="primary">Save</button>
+    <app-submit-button [text]="'Save'" [loading]="!loading" [disabled]="safetyPlanForm.invalid"
+      (click)="submitPost()"></app-submit-button>
   </form>
 </main>
 

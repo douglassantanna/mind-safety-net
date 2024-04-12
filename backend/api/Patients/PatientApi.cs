@@ -19,6 +19,15 @@ public static class PatientApi
              Results.UnprocessableEntity(response.Data);
         });
 
+        group.MapPut("/update-safety-plan", async (IPatientService patientService,
+                                                    [FromBody] EditSafetyPlan request) =>
+        {
+            var response = await patientService.UpdateSafetyPlanAsync(request);
+            return response.Data is 404 ?
+            Results.NotFound(response.Message) :
+            Results.UnprocessableEntity(response.Data);
+        });
+
         group.MapGet("/list", async (IPatientService patientService) =>
        {
            var patients = await patientService.ListAsync(default);
