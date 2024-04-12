@@ -25,7 +25,9 @@ public static class PatientApi
             var response = await patientService.UpdateSafetyPlanAsync(request);
             return response.Data is 404 ?
             Results.NotFound(response.Message) :
-            Results.UnprocessableEntity(response.Data);
+            response.Data is 500 ?
+            Results.BadRequest(response.Data) :
+            Results.Ok();
         });
 
         group.MapGet("/list", async (IPatientService patientService) =>

@@ -82,11 +82,14 @@ public class PatientService(
 
     public async Task<Response> UpdateSafetyPlanAsync(EditSafetyPlan request)
     {
-        var safetyPlan = await _context.SafetyPlans.Where(x => x.PatientId == request.PatientId).FirstOrDefaultAsync();
-        if (safetyPlan is null)
+        var patient = await _context.Patients
+                                    .Include(p => p.SafetyPlan)
+                                    .Where(x => x.Id == request.PatientId)
+                                    .FirstOrDefaultAsync();
+        if (patient is null)
             return new Response("Safety plan not found!", false, 404);
 
-        safetyPlan.Update(request.WarningSigns,
+        patient.SafetyPlan.Update(request.WarningSigns,
                           request.Distractions,
                           request.ReasonsForLiving,
                           request.SituationFever,
@@ -94,7 +97,7 @@ public class PatientService(
 
         try
         {
-            _context.SafetyPlans.Update(safetyPlan);
+            _context.Patients.Update(patient);
             await _context.SaveChangesAsync();
             return new Response("Ok");
         }
@@ -110,6 +113,8 @@ public class PatientService(
         try
         {
             var patient = await _context.Patients
+                                        .AsNoTracking()
+                                        .Include(x => x.SafetyPlan)
                                         .Include(x => x.Questions)
                                             .ThenInclude(x => x.Answers)
                                         .FirstOrDefaultAsync(p => p.Id == id);
