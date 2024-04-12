@@ -31,7 +31,7 @@ export class NavComponent implements OnInit {
   private authService = inject(AuthenticationService);
   isPatient = false;
   ngOnInit(): void {
-    if (this.authService.role === 'admin') {
+    if (this.authService.role === 'patient') {
       this.isPatient = true;
     }
   }

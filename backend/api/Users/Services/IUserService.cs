@@ -8,9 +8,10 @@ using Microsoft.EntityFrameworkCore;
 namespace api.Users.Services;
 public interface IUserService
 {
-    Task<Response> CreateUserAsync(CreateUserRequest request);
-    Task<Response> EditUserAsync(EditUserRequest request);
-    Task<List<ViewUserDTO>> ListAllUsers(CancellationToken ct);
+    Task<Response> CreateAsync(CreateUserRequest request);
+    Task<Response> EditAsync(EditUserRequest request);
+    Task<List<ViewUserDTO>> ListAllAsync(CancellationToken ct);
+    Task<bool> UserExists(string email);
 }
 
 public class UserService(DataContext context,
@@ -22,7 +23,7 @@ public class UserService(DataContext context,
     private readonly IPasswordHelper _passwordHelper = passwordHelper;
     private readonly IValidator<CreateUserRequest> _createUservalidator = createUservalidator;
     private readonly IValidator<EditUserRequest> _editUservalidator = editUservalidator;
-    public async Task<Response> CreateUserAsync(CreateUserRequest request)
+    public async Task<Response> CreateAsync(CreateUserRequest request)
     {
         var validationResult = await _createUservalidator.ValidateAsync(request);
 
@@ -51,7 +52,7 @@ public class UserService(DataContext context,
         return new Response("", true, user.Id);
     }
 
-    public async Task<Response> EditUserAsync(EditUserRequest request)
+    public async Task<Response> EditAsync(EditUserRequest request)
     {
         var validationResult = await _editUservalidator.ValidateAsync(request);
 
@@ -71,8 +72,8 @@ public class UserService(DataContext context,
         return new Response("", true, user.Id);
     }
 
-    public async Task<List<ViewUserDTO>> ListAllUsers(CancellationToken ct)
-    {
-        return await _context.Users.Select(user => new ViewUserDTO(user.Id, user.FullName, user.Email, user.Role, user.Active)).ToListAsync(ct);
-    }
+    public async Task<List<ViewUserDTO>> ListAllAsync(CancellationToken ct) => await _context.Users.Select(user => new ViewUserDTO(user.Id, user.FullName, user.Email, user.Role,
+                                                                                                                                               user.Active)).ToListAsync(ct);
+
+    public async Task<bool> UserExists(string email) => await _context.Users.AnyAsync(u => u.Email == email);
 }

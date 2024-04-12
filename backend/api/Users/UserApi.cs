@@ -12,7 +12,7 @@ public static class PatientApi
         group.MapPost("/create", async (IUserService userService,
                                         [FromBody] CreateUserRequest request) =>
         {
-            var response = await userService.CreateUserAsync(request);
+            var response = await userService.CreateAsync(request);
             return response.Success ?
              Results.Created("", response.Data) :
              Results.UnprocessableEntity(response.Data);
@@ -21,7 +21,7 @@ public static class PatientApi
         group.MapPut("/edit", async (IUserService userService,
                                      [FromBody] EditUserRequest request) =>
         {
-            var response = await userService.EditUserAsync(request);
+            var response = await userService.EditAsync(request);
             if (response.Success)
             {
                 return Results.Ok(response.Data);
@@ -34,7 +34,7 @@ public static class PatientApi
 
         group.MapGet("/list", async (IUserService userService) =>
        {
-           var users = await userService.ListAllUsers(default);
+           var users = await userService.ListAllAsync(default);
            return Results.Ok(users);
        });
 

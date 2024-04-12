@@ -79,7 +79,7 @@ export class PatientFormComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
-        this.router.navigateByUrl(`patients/${result.patientId}/advices`);
+        this.router.navigateByUrl(`patients/advices`);
       }
     })
   }

@@ -37,7 +37,7 @@ export class LoginComponent {
     this.authService.login(this.emailFormControl?.value, this.passwordFormControl?.value).subscribe({
       next: () => {
         this.loading = false;
-        this.router.navigate(['/users/list']);
+        this.router.navigateByUrl('patients/advices');
       },
       error: (err) => {
         console.log(err);
