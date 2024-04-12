@@ -11,6 +11,7 @@ public interface IPatientService
     Task<Response> CreateAsync(CreatePatientRequest request);
     Task<IEnumerable<ViewPatientDTO>> ListAsync(CancellationToken ct);
     Task<Response> GetByIdAsync(int id);
+    Task<Response> UpdateSafetyPlanAsync(int patientId, EditSafetyPlan request);
 }
 public class PatientService(
     DataContext context,
@@ -59,6 +60,31 @@ public class PatientService(
         {
             Console.WriteLine($"Error: {0}", ex.Message);
             return new Response($"Error: {ex.Message}", false, 500);
+        }
+    }
+
+    public async Task<Response> UpdateSafetyPlanAsync(int patientId, EditSafetyPlan request)
+    {
+        var safetyPlan = await _context.SafetyPlans.Where(x => x.PatientId == patientId).FirstOrDefaultAsync();
+        if (safetyPlan is null)
+            return new Response("Safety plan not found!", false);
+
+        safetyPlan.Update(request.WarningSigns,
+                          request.Distractions,
+                          request.ReasonsForLiving,
+                          request.SituationFever,
+                          request.ProfessionalSupport);
+
+        try
+        {
+            _context.SafetyPlans.Update(safetyPlan);
+            await _context.SaveChangesAsync();
+            return new Response("Ok");
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(ex.Message);
+            return new Response($"Error:{ex.Message}", false, 500);
         }
     }
 
