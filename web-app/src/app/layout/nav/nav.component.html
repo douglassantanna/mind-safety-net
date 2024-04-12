@@ -7,9 +7,11 @@
       <a mat-list-item [routerLink]="'patients/advices'">Home</a>
       <a mat-list-item [routerLink]="'patients/safety-plan'">Safety Plan</a>
       }
+      @else {
       <a mat-list-item [routerLink]="'patients/list'">Patients</a>
       <a mat-list-item [routerLink]="'questions/list'">Questions</a>
       <a mat-list-item [routerLink]="'users/list'">Users</a>
+      }
     </mat-nav-list>
   </mat-sidenav>
   <mat-sidenav-content>
