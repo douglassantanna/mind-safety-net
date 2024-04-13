@@ -19,8 +19,14 @@
   </div>
 
   <div>
-    <strong>Date Submitted:</strong> {{ patient.dateSubmittedForm | date:'medium' }}
+    <strong>Date Submitted:</strong> {{ patient.dateSubmittedForm | date : 'dd/MM/yyyy HH:mm' }}
   </div>
+
+  @if (patient.isScheduled) {
+  <div>
+    <strong>Appointment Date:</strong> {{ patient.appointment | date : 'dd/MM/yyyy HH:mm' }}
+  </div>
+  }
 
   <div class="patient-priority">
     <strong>Priority:</strong> <app-patient-priority [priority]="patient.priority"></app-patient-priority>
@@ -79,15 +85,6 @@
     margin-bottom: 20px;
   }
 
-  .answer {
-    margin-left: 20px;
-    color: #333;
-  }
-
-  .answer p {
-    margin: 5px 0;
-  }
-
   .card {
     background-color: #ffffff;
     border: 1px solid #cccccc;
@@ -113,8 +110,8 @@
   }
 
   .answers-list {
-    list-style-type: none;
-    padding: 0;
+    display: flex;
+    gap: 10px;
   }
 
   .answer-item {

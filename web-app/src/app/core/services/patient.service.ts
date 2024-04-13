@@ -31,6 +31,8 @@ export interface ViewPatientProfile {
   priority: Priority;
   questions: Question[];
   dateSubmittedForm: Date;
+  isScheduled: boolean;
+  appointment: Date;
 }
 
 export interface UpdateSafetyPlan {
