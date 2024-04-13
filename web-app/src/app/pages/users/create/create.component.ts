@@ -35,6 +35,7 @@ export class CreateComponent {
   roles: any[] = [
     { id: Role.Admin, description: 'Admin' },
     { id: Role.Manager, description: 'Manager' },
+    { id: Role.Patient, description: 'Patient' }
   ];
   newUser: NewUser = {} as NewUser;
   title = 'Create New User';
