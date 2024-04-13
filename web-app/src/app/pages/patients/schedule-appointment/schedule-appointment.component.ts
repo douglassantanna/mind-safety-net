@@ -68,6 +68,16 @@ export class ScheduleAppointmentComponent {
     });
   }
 
+  myFilter = (d: Date | null): boolean => {
+    const currentDate = new Date();
+    const selectedDate = d || new Date();
+    if (selectedDate.getDay() === 0 || selectedDate.getDay() === 6) {
+      return false;
+    }
+    return selectedDate > currentDate;
+  };
+
+
   private formatDate(date: Date): any {
     const year = date.getFullYear();
     const month = this.padZero(date.getMonth() + 1);
