@@ -15,6 +15,7 @@ public interface IPatientService
     Task<Response> GetByIdAsync(int id);
     Task<Response> GetSafetyPlanByEmailAsync(string patientEmail);
     Task<Response> UpdateSafetyPlanAsync(string patientEmail, EditSafetyPlan request);
+    Task<Response> ScheduleAppointmentAsync(string patientEmail, ScheduleAppointmentRequest request);
 }
 public class PatientService(
     DataContext context,
@@ -185,6 +186,30 @@ public class PatientService(
         {
             Console.WriteLine($"Error: {0}", ex.Message);
             return new Response($"Error: {ex.Message}", false, 500);
+        }
+    }
+
+    public async Task<Response> ScheduleAppointmentAsync(string patientEmail, ScheduleAppointmentRequest request)
+    {
+        {
+            var patient = await _context.Patients
+                                        .FirstOrDefaultAsync(x => x.Email.ToLower() == patientEmail.ToLower());
+            if (patient is null)
+                return new Response("Patient plan not found!", false, 404);
+
+            try
+            {
+                patient.ScheduleAppointment(request);
+
+                _context.Patients.Update(patient);
+                await _context.SaveChangesAsync();
+                return new Response("Ok");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return new Response($"Error:{ex.Message}", false, 500);
+            }
         }
     }
 }

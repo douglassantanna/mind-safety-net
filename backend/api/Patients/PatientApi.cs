@@ -31,6 +31,18 @@ public static class PatientApi
             Results.Ok();
         });
 
+        group.MapPut("/schedule-appointment/{email}", async (string email,
+                                                            IPatientService patientService,
+                                                            [FromBody] ScheduleAppointmentRequest request) =>
+        {
+            var response = await patientService.ScheduleAppointmentAsync(email, request);
+            return response.Data is 404 ?
+            Results.NotFound(response.Message) :
+            response.Data is 500 ?
+            Results.BadRequest(response.Data) :
+            Results.Ok();
+        });
+
         group.MapGet("/list", async (IPatientService patientService) =>
        {
            var patients = await patientService.ListAsync(default);

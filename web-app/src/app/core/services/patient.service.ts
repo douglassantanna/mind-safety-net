@@ -65,4 +65,8 @@ export class PatientService {
   getSafetyPlanByEmail(patientEmail: string): Observable<CustomResponse> {
     return this.http.get<CustomResponse>(`${url}/get-safety-plan-by-email/${patientEmail}`);
   }
+
+  scheduleAppointment(patientEmail: string, appointmentDate: any): Observable<CustomResponse> {
+    return this.http.put<CustomResponse>(`${url}/schedule-appointment/${patientEmail}`, appointmentDate);
+  }
 }
