@@ -63,6 +63,7 @@ export class ListPatientsComponent implements OnInit {
         const minutes = Number(choosenMinute);
 
         patient.appointment = new Date(year, month - 1, day, hours, minutes);
+        patient.isScheduled = true;
       }
     })
   }
