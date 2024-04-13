@@ -138,6 +138,8 @@ public class PatientService(
                 patient.Email,
                 patient.DateSubmittedForm,
                 patient.Priority,
+                patient.IsScheduled,
+                patient.Appointment,
                 questionsDto);
 
             return new Response("", true, patientDTO);
@@ -154,7 +156,14 @@ public class PatientService(
         IEnumerable<ViewPatientDTO> viewPatients = [];
         try
         {
-            viewPatients = await _context.Patients.Select(p => new ViewPatientDTO(p.Id, p.FullName, p.Email, p.DateSubmittedForm, p.Priority)).ToListAsync(cancellationToken: ct);
+            viewPatients = await _context.Patients.Select(p => new ViewPatientDTO(p.Id,
+                                                                                  p.FullName,
+                                                                                  p.Email,
+                                                                                  p.DateSubmittedForm,
+                                                                                  p.Priority,
+                                                                                  p.IsScheduled,
+                                                                                  p.Appointment))
+                                                                                  .ToListAsync(cancellationToken: ct);
         }
         catch (Exception ex)
         {
@@ -191,25 +200,23 @@ public class PatientService(
 
     public async Task<Response> ScheduleAppointmentAsync(string patientEmail, ScheduleAppointmentRequest request)
     {
+        var patient = await _context.Patients
+                                    .FirstOrDefaultAsync(x => x.Email.ToLower() == patientEmail.ToLower());
+        if (patient is null)
+            return new Response("Patient plan not found!", false, 404);
+
+        try
         {
-            var patient = await _context.Patients
-                                        .FirstOrDefaultAsync(x => x.Email.ToLower() == patientEmail.ToLower());
-            if (patient is null)
-                return new Response("Patient plan not found!", false, 404);
+            patient.ScheduleAppointment(request);
 
-            try
-            {
-                patient.ScheduleAppointment(request);
-
-                _context.Patients.Update(patient);
-                await _context.SaveChangesAsync();
-                return new Response("Ok");
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-                return new Response($"Error:{ex.Message}", false, 500);
-            }
+            _context.Patients.Update(patient);
+            await _context.SaveChangesAsync();
+            return new Response("Ok");
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(ex.Message);
+            return new Response($"Error:{ex.Message}", false, 500);
         }
     }
 }

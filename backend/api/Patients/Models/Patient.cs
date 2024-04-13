@@ -63,6 +63,7 @@ public class Patient : Entity
       var date = new DateOnly(request.ChoosenYear, request.ChoosenMonth, request.ChoosenDay);
       var time = new TimeOnly(request.ChoosenHour, request.ChoosenMinute);
       Appointment = new DateTime(date, time);
+      IsScheduled = true;
     }
     catch (Exception ex)
     {

@@ -17,7 +17,7 @@
 
     <ng-container matColumnDef="dateSubmittedForm">
       <th mat-header-cell *matHeaderCellDef>Date Submitted</th>
-      <td mat-cell *matCellDef="let element"> {{ element.dateSubmittedForm | date : 'short' }} </td>
+      <td mat-cell *matCellDef="let element"> {{ element.dateSubmittedForm | date : 'dd/MM/yyyy HH:mm' }} </td>
     </ng-container>
 
     <ng-container matColumnDef="priority">
@@ -30,9 +30,14 @@
     <ng-container matColumnDef="scheduleAppointment">
       <th mat-header-cell *matHeaderCellDef>Schedule Appointment</th>
       <td mat-cell *matCellDef="let element">
+        @if (element.isScheduled) {
+        {{ element.appointment | date : 'dd/MM/yyyy HH:mm' }}
+        }
+        @else {
         <button style="color:cornflowerblue;" mat-icon-button (click)="scheduleAppointment(element)">
           <mat-icon>event</mat-icon>
         </button>
+        }
       </td>
     </ng-container>
 

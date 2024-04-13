@@ -36,6 +36,8 @@ export class ListPatientsComponent implements OnInit {
     this.patientService.list().subscribe({
       next: (patients) => {
         this.patients = patients;
+        console.log(patients);
+
       },
       error: (err) => {
         console.log(err);

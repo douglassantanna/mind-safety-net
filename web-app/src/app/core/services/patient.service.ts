@@ -19,6 +19,8 @@ export interface ViewPatient {
   fullName: string;
   email: string;
   priority: Priority;
+  isScheduled: boolean;
+  appointment: Date;
 }
 
 export interface ViewPatientProfile {
