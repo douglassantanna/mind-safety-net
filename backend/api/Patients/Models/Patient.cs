@@ -18,6 +18,7 @@ public class Patient : Entity
     DateSubmittedForm = DateTime.Now;
     _questions.AddRange(questions);
     SetPriority(_questions);
+    SafetyPlan.PatientEmail = email;
   }
   protected Patient()
   { }

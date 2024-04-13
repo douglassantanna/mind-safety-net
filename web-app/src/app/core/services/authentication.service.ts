@@ -74,6 +74,21 @@ export class AuthenticationService {
     return '';
   }
 
+  get userEmail(): string {
+    try {
+      const token = this.localStorageService.getToken();
+      const decodedToken = jwtDecode(token as string) as {
+        email: string
+      };
+
+      if (decodedToken)
+        return decodedToken.email.toLocaleLowerCase();
+    } catch (error) {
+      console.log(error);
+    }
+    return '';
+  }
+
   private get token(): string {
     return this.localStorageService.getToken();
   }

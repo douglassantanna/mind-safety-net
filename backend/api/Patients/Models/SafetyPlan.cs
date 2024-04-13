@@ -7,13 +7,15 @@ public class SafetyPlan : Entity
                        string distractions,
                        string reasonsForLiving,
                        string situationFever,
-                       string professionalSupport)
+                       string professionalSupport,
+                       string patientEmail)
     {
         WarningSigns = warningSigns;
         Distractions = distractions;
         ReasonsForLiving = reasonsForLiving;
         SituationFever = situationFever;
         ProfessionalSupport = professionalSupport;
+        PatientEmail = patientEmail;
     }
 
     public string WarningSigns { get; set; } = string.Empty;
@@ -21,6 +23,7 @@ public class SafetyPlan : Entity
     public string ReasonsForLiving { get; set; } = string.Empty;
     public string SituationFever { get; set; } = string.Empty;
     public string ProfessionalSupport { get; set; } = string.Empty;
+    public string PatientEmail { get; set; } = string.Empty;
     public int PatientId { get; set; }
-    public Patient Patient { get; set; }
+    public Patient Patient { get; set; } = null!;
 }

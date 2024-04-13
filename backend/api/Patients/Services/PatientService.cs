@@ -13,7 +13,8 @@ public interface IPatientService
     Task<Response> CreateAsync(CreatePatientRequest request);
     Task<IEnumerable<ViewPatientDTO>> ListAsync(CancellationToken ct);
     Task<Response> GetByIdAsync(int id);
-    Task<Response> UpdateSafetyPlanAsync(EditSafetyPlan request);
+    Task<Response> GetSafetyPlanByEmailAsync(string patientEmail);
+    Task<Response> UpdateSafetyPlanAsync(string patientEmail, EditSafetyPlan request);
 }
 public class PatientService(
     DataContext context,
@@ -80,24 +81,23 @@ public class PatientService(
         }
     }
 
-    public async Task<Response> UpdateSafetyPlanAsync(EditSafetyPlan request)
+    public async Task<Response> UpdateSafetyPlanAsync(string patientEmail, EditSafetyPlan request)
     {
-        var patient = await _context.Patients
-                                    .Include(p => p.SafetyPlan)
-                                    .Where(x => x.Id == request.PatientId)
-                                    .FirstOrDefaultAsync();
-        if (patient is null)
+        var safetyPlan = await _context.SafetyPlans
+                                    .FirstOrDefaultAsync(x => x.PatientEmail.ToLower() == patientEmail.ToLower());
+        if (safetyPlan is null)
             return new Response("Safety plan not found!", false, 404);
 
-        patient.SafetyPlan.Update(request.WarningSigns,
-                          request.Distractions,
-                          request.ReasonsForLiving,
-                          request.SituationFever,
-                          request.ProfessionalSupport);
+        safetyPlan.Update(request.WarningSigns,
+                                  request.Distractions,
+                                  request.ReasonsForLiving,
+                                  request.SituationFever,
+                                  request.ProfessionalSupport,
+                                  patientEmail);
 
         try
         {
-            _context.Patients.Update(patient);
+            _context.SafetyPlans.Update(safetyPlan);
             await _context.SaveChangesAsync();
             return new Response("Ok");
         }
@@ -160,5 +160,31 @@ public class PatientService(
             Console.WriteLine($"Error: {0}", ex.Message);
         }
         return viewPatients;
+    }
+
+    public async Task<Response> GetSafetyPlanByEmailAsync(string patientEmail)
+    {
+        try
+        {
+            var safetyPlan = await _context.SafetyPlans
+                                        .AsNoTracking()
+                                        .FirstOrDefaultAsync(p => p.PatientEmail.ToLower() == patientEmail.ToLower());
+
+            if (safetyPlan is null) return new Response("Patient not found!", false, 404);
+
+            ViewSafetyPlan safetyPlanDto = new(safetyPlan.Id,
+                                               safetyPlan.WarningSigns,
+                                               safetyPlan.Distractions,
+                                               safetyPlan.ReasonsForLiving,
+                                               safetyPlan.SituationFever,
+                                               safetyPlan.ProfessionalSupport); ;
+
+            return new Response("", true, safetyPlanDto);
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error: {0}", ex.Message);
+            return new Response($"Error: {ex.Message}", false, 500);
+        }
     }
 }

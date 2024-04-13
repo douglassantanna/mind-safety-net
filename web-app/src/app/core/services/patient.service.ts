@@ -37,7 +37,6 @@ export interface UpdateSafetyPlan {
   reasonsForLiving: string;
   situationFever: string;
   professionalSupport: string;
-  patientId: number;
 }
 
 @Injectable({
@@ -51,8 +50,8 @@ export class PatientService {
     return this.http.post<CustomResponse>(`${url}/create`, patient);
   }
 
-  updateSafetyPlan(request: UpdateSafetyPlan): Observable<CustomResponse> {
-    return this.http.put<CustomResponse>(`${url}/update-safety-plan`, request);
+  updateSafetyPlan(request: UpdateSafetyPlan, patientEmail: string): Observable<CustomResponse> {
+    return this.http.put<CustomResponse>(`${url}/update-safety-plan/${patientEmail}`, request);
   }
 
   list(): Observable<ViewPatient[]> {
@@ -61,5 +60,9 @@ export class PatientService {
 
   getById(patientId: number): Observable<CustomResponse> {
     return this.http.get<CustomResponse>(`${url}/get-by-id/${patientId}`);
+  }
+
+  getSafetyPlanByEmail(patientEmail: string): Observable<CustomResponse> {
+    return this.http.get<CustomResponse>(`${url}/get-safety-plan-by-email/${patientEmail}`);
   }
 }

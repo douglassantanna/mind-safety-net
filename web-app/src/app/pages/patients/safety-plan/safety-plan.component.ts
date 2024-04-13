@@ -26,7 +26,7 @@ import { AuthenticationService } from '../../../core/services/authentication.ser
 export class SafetyPlanComponent implements OnInit {
   loading = false;
   safetyPlanForm!: FormGroup;
-  patientId = 0;
+  patientEmail = '';
 
   constructor(
     private fb: FormBuilder,
@@ -37,17 +37,28 @@ export class SafetyPlanComponent implements OnInit {
       distractions: ['', Validators.maxLength(1000)],
       reasonsForLiving: ['', Validators.maxLength(1000)],
       situationFever: ['', Validators.maxLength(1000)],
-      professionalSupport: ['', Validators.maxLength(1000)],
-      patientId: 0
+      professionalSupport: ['', Validators.maxLength(1000)]
     });
   }
 
   ngOnInit(): void {
-    this.getPatientId();
+
+    this.getPatientEmail();
+
+    this.patientService.getSafetyPlanByEmail(this.patientEmail).subscribe({
+      next: (value) => {
+        console.log(value);
+
+      },
+      error: (err) => {
+        console.log(err);
+
+      },
+    })
   }
 
-  private getPatientId() {
-    this.patientId = Number(this.authService.userId);
+  private getPatientEmail() {
+    this.patientEmail = this.authService.userEmail;
   }
 
   submitPost() {
@@ -58,10 +69,9 @@ export class SafetyPlanComponent implements OnInit {
       distractions: this.safetyPlanForm.get('distractions')?.value,
       reasonsForLiving: this.safetyPlanForm.get('reasonsForLiving')?.value,
       situationFever: this.safetyPlanForm.get('situationFever')?.value,
-      professionalSupport: this.safetyPlanForm.get('professionalSupport')?.value,
-      patientId: this.patientId
+      professionalSupport: this.safetyPlanForm.get('professionalSupport')?.value
     };
-    this.patientService.updateSafetyPlan(request).subscribe({
+    this.patientService.updateSafetyPlan(request, this.patientEmail).subscribe({
       next: (response) => {
         console.log(response);
 

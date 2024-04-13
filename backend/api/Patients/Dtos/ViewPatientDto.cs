@@ -12,3 +12,10 @@ public record ViewPatientProfileDTO(int Id,
                                     Priority Priority,
                                     IEnumerable<ViewQuestions> Questions);
 public record CreateQuestionsDTO(int QuestionId, int AnswerId, int AnswerValue);
+
+public record ViewSafetyPlan(int SafetyPlanId,
+                             string WarningSigns,
+                             string Distractions,
+                             string ReasonsForLiving,
+                             string SituationFever,
+                             string ProfessionalSupport);
