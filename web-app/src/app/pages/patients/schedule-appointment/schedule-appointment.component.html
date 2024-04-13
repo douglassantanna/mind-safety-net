@@ -26,6 +26,7 @@
   </mat-dialog-content>
 
   <mat-dialog-actions>
+    <button style="margin-right: 10px;" mat-raised-button color="accent" mat-dialog-close>Close</button>
     <app-submit-button [text]="'Save'" [loading]="!loading" [disabled]="scheduleAppointmentForm.invalid"
       (click)="onSubmit()"></app-submit-button>
   </mat-dialog-actions>

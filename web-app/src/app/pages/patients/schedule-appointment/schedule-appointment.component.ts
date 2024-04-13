@@ -7,6 +7,7 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { MAT_DIALOG_DATA, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { PatientService, ViewPatient } from '../../../core/services/patient.service';
 import { CommonModule } from '@angular/common';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'app-schedule-appointment',
@@ -18,7 +19,8 @@ import { CommonModule } from '@angular/common';
     SubmitButtonComponent,
     ReactiveFormsModule,
     MatDialogModule,
-    CommonModule
+    CommonModule,
+    MatButtonModule
   ],
   templateUrl: './schedule-appointment.component.html'
 })
@@ -43,6 +45,7 @@ export class ScheduleAppointmentComponent {
   }
 
   onSubmit() {
+    this.loading = true;
     const formData = this.scheduleAppointmentForm.value;
 
     const formattedDate = this.formatDate(formData.choosenDate);
@@ -58,12 +61,12 @@ export class ScheduleAppointmentComponent {
 
     this.patientService.scheduleAppointment(this.patient.email, dataToSend).subscribe({
       next: (value) => {
-        console.log(value);
-
         this.dialogRef.close({ dataToSend })
+        this.loading = false;
       },
       error: (err) => {
         console.log(err);
+        this.loading = false;
       },
     });
   }

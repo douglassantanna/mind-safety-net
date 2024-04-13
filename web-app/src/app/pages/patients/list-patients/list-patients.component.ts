@@ -36,8 +36,6 @@ export class ListPatientsComponent implements OnInit {
     this.patientService.list().subscribe({
       next: (patients) => {
         this.patients = patients;
-        console.log(patients);
-
       },
       error: (err) => {
         console.log(err);
@@ -64,7 +62,7 @@ export class ListPatientsComponent implements OnInit {
         const hours = Number(choosenHour);
         const minutes = Number(choosenMinute);
 
-        this.scheduleAppointmentDate = new Date(year, month - 1, day, hours, minutes);
+        patient.appointment = new Date(year, month - 1, day, hours, minutes);
       }
     })
   }
