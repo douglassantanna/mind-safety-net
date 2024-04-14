@@ -8,6 +8,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { PatientDetailsComponent } from '../patient-details/patient-details.component';
 import { QuestionService } from '../../../core/services/question.service';
 import { Router } from '@angular/router';
+import { NotificationsService } from '../../../core/services/notifications.service';
 
 @Component({
   selector: 'app-patient-form',
@@ -30,6 +31,7 @@ export class PatientFormComponent implements OnInit {
     private dialog: MatDialog,
     private questionService: QuestionService,
     private router: Router,
+    private notificationsService: NotificationsService,
     private fb: FormBuilder) {
     this.questionsForm = this.fb.group({
       questions: this.fb.array([])
@@ -46,6 +48,7 @@ export class PatientFormComponent implements OnInit {
       },
       error: (err) => {
         console.log(err);
+        this.notificationsService.showError("An error occurred");
       },
     })
   }

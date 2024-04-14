@@ -8,6 +8,7 @@ import { MAT_DIALOG_DATA, MatDialogModule, MatDialogRef } from '@angular/materia
 import { PatientService, ViewPatient } from '../../../core/services/patient.service';
 import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
+import { NotificationsService } from '../../../core/services/notifications.service';
 
 @Component({
   selector: 'app-schedule-appointment',
@@ -31,6 +32,7 @@ export class ScheduleAppointmentComponent {
   constructor(
     private fb: FormBuilder,
     private patientService: PatientService,
+    private notificationsService: NotificationsService,
     @Inject(MAT_DIALOG_DATA) public patient: ViewPatient,
     private dialogRef: MatDialogRef<ScheduleAppointmentComponent>,) {
 
@@ -63,10 +65,12 @@ export class ScheduleAppointmentComponent {
       next: (value) => {
         this.dialogRef.close({ dataToSend })
         this.loading = false;
+        this.notificationsService.showSuccess("Appointment scheduled successfully!");
       },
       error: (err) => {
         console.log(err);
         this.loading = false;
+        this.notificationsService.showError("An error occurred");
       },
     });
   }

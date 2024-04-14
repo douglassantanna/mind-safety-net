@@ -9,6 +9,7 @@ import { PatientService } from '../../../core/services/patient.service';
 import { SubmitButtonComponent } from '../../../layout/submit-button/submit-button.component';
 import { AuthenticationService } from '../../../core/services/authentication.service';
 import { CustomResponse } from '../../../core/models/response';
+import { NotificationsService } from '../../../core/services/notifications.service';
 
 @Component({
   selector: 'app-safety-plan',
@@ -32,7 +33,8 @@ export class SafetyPlanComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private patientService: PatientService,
-    private authService: AuthenticationService) {
+    private authService: AuthenticationService,
+    private notificationsService: NotificationsService) {
     this.safetyPlanForm = this.fb.group({
       warningSigns: ['', Validators.maxLength(1000)],
       distractions: ['', Validators.maxLength(1000)],
@@ -62,10 +64,12 @@ export class SafetyPlanComponent implements OnInit {
     this.patientService.updateSafetyPlan(request, this.patientEmail).subscribe({
       next: (response) => {
         this.loading = false;
+        this.notificationsService.showSuccess("Safety plan updated successfully!");
       },
       error: (err) => {
         console.log(err);
         this.loading = false;
+        this.notificationsService.showError("An error occurred");
       },
     })
   }

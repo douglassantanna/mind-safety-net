@@ -9,6 +9,7 @@ import { Question } from '../../../core/models/question';
 import { FormControl } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { CreateQuestionComponent } from '../create-question/create-question.component';
+import { NotificationsService } from '../../../core/services/notifications.service';
 
 @Component({
   selector: 'app-list-questions',
@@ -27,6 +28,7 @@ export class ListQuestionsComponent implements OnInit {
 
   constructor(
     private questionService: QuestionService,
+    private notificationsService: NotificationsService,
     private dialog: MatDialog) { }
 
   ngOnInit(): void {
@@ -38,8 +40,9 @@ export class ListQuestionsComponent implements OnInit {
       next: (questions) => {
         this.questions = questions;
       },
-      error(err) {
+      error: (err) => {
         console.log(err);
+        this.notificationsService.showError("An error occurred!");
       },
     })
   }

@@ -3,6 +3,7 @@ import { PatientService, ViewPatientProfile } from '../../../core/services/patie
 import { NgFor } from '@angular/common';
 import { AuthenticationService } from '../../../core/services/authentication.service';
 import { Priority } from '../../../core/models/patients';
+import { NotificationsService } from '../../../core/services/notifications.service';
 export interface Advice {
   messages: Message[];
   priority: Priority;
@@ -90,7 +91,8 @@ export class PatientAdvicesComponent implements OnInit {
   filteredAdvices: Message[] = [];
   constructor(
     private patientService: PatientService,
-    private authService: AuthenticationService) { }
+    private authService: AuthenticationService,
+    private notificationsService: NotificationsService) { }
 
   ngOnInit(): void {
     const id = Number(this.authService.userId);
@@ -106,6 +108,7 @@ export class PatientAdvicesComponent implements OnInit {
       },
       error: (err) => {
         console.log(err);
+        this.notificationsService.showError("An error occurred");
       },
     });
   }

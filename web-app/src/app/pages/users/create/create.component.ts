@@ -14,6 +14,7 @@ import { SubmitButtonComponent } from '../../../layout/submit-button/submit-butt
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { UserService } from '../../../core/services/user.service';
 import { MatSelectModule } from '@angular/material/select';
+import { NotificationsService } from '../../../core/services/notifications.service';
 
 @Component({
   selector: 'app-create',
@@ -47,7 +48,8 @@ export class CreateComponent {
     private fb: FormBuilder,
     @Inject(MAT_DIALOG_DATA) public userToEdit: User,
     private userService: UserService,
-    private dialogRef: MatDialogRef<CreateComponent>
+    private dialogRef: MatDialogRef<CreateComponent>,
+    private notificationsService: NotificationsService
   ) {
     this.userForm = this.fb.group({
       fullName: ['', [Validators.required, Validators.maxLength(255)]],
@@ -76,8 +78,10 @@ export class CreateComponent {
       this.userService.edit(this.userForm.value).subscribe({
         next: (response) => {
           this.dialogRef.close({ userId: response });
+          this.notificationsService.showSuccess("User updated successfully!");
         },
         error: (err) => {
+          this.notificationsService.showError("An error occurred!");
         }
       });
     }
@@ -85,8 +89,10 @@ export class CreateComponent {
       this.userService.create(this.userForm.value).subscribe({
         next: (response) => {
           this.dialogRef.close({ userId: response });
+          this.notificationsService.showSuccess("User created successfully!");
         },
         error: (err) => {
+          this.notificationsService.showError("An error occurred!");
         }
       });
     }

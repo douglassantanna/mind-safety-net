@@ -8,6 +8,7 @@ import { SubmitButtonComponent } from '../../../layout/submit-button/submit-butt
 import { CustomResponse } from '../../../core/models/response';
 import { AuthenticationService } from '../../../core/services/authentication.service';
 import { PatientService, UpdateSelfCare } from '../../../core/services/patient.service';
+import { NotificationsService } from '../../../core/services/notifications.service';
 
 @Component({
   selector: 'app-self-care',
@@ -29,6 +30,7 @@ export class SelfCareComponent {
 
   constructor(
     private fb: FormBuilder,
+    private notificationsService: NotificationsService,
     private patientService: PatientService,
     private authService: AuthenticationService) {
     this.selfCareForm = this.fb.group({
@@ -56,10 +58,12 @@ export class SelfCareComponent {
     this.patientService.updateSelfCare(request, this.patientEmail).subscribe({
       next: (response) => {
         this.loading = false;
+        this.notificationsService.showSuccess("Self care updated successfully!");
       },
       error: (err) => {
         console.log(err);
         this.loading = false;
+        this.notificationsService.showError("An error occurred");
       },
     })
   }

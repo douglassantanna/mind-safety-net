@@ -9,6 +9,7 @@ import { PatientService, ViewPatient } from '../../../core/services/patient.serv
 import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { ScheduleAppointmentComponent } from '../schedule-appointment/schedule-appointment.component';
+import { NotificationsService } from '../../../core/services/notifications.service';
 @Component({
   selector: 'app-list-patients',
   standalone: true,
@@ -30,7 +31,8 @@ export class ListPatientsComponent implements OnInit {
   constructor(
     private patientService: PatientService,
     private router: Router,
-    private dialog: MatDialog,) {
+    private dialog: MatDialog,
+    private notificationsService: NotificationsService) {
   }
   ngOnInit(): void {
     this.patientService.list().subscribe({
@@ -39,6 +41,7 @@ export class ListPatientsComponent implements OnInit {
       },
       error: (err) => {
         console.log(err);
+        this.notificationsService.showError("An error occurred");
       },
     })
   }

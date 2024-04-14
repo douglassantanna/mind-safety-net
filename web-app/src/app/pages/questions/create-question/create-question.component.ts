@@ -6,6 +6,7 @@ import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { QuestionService } from '../../../core/services/question.service';
+import { NotificationsService } from '../../../core/services/notifications.service';
 
 @Component({
   selector: 'app-create-question',
@@ -27,6 +28,7 @@ export class CreateQuestionComponent {
   constructor(
     private formBuilder: FormBuilder,
     private questionService: QuestionService,
+    private notificationsService: NotificationsService,
     private dialogRef: MatDialogRef<CreateQuestionComponent>) {
     this.createQuestionForm = this.formBuilder.group({
       description: ['', [Validators.maxLength(500), Validators.required]],
@@ -59,10 +61,12 @@ export class CreateQuestionComponent {
         next: (value) => {
           this.dialogRef.close({
             questionId: value
-          })
+          });
+          this.notificationsService.showSuccess("Question added successfully!");
         },
         error: (err) => {
           console.log(err);
+          this.notificationsService.showError("An error occurred!");
         },
       })
     }

@@ -4,6 +4,7 @@ import { PatientService, ViewPatientProfile } from '../../../core/services/patie
 import { CommonModule } from '@angular/common';
 import { PatientPriorityComponent } from '../../../layout/patient-priority/patient-priority.component';
 import { MatIconModule } from '@angular/material/icon';
+import { NotificationsService } from '../../../core/services/notifications.service';
 
 @Component({
   selector: 'app-patient-profile',
@@ -19,7 +20,8 @@ export class PatientProfileComponent implements OnInit {
   patient: ViewPatientProfile = {} as ViewPatientProfile;
   constructor(
     private route: ActivatedRoute,
-    private patientService: PatientService) {
+    private patientService: PatientService,
+    private notificationsService: NotificationsService) {
 
   }
   ngOnInit(): void {
@@ -31,7 +33,7 @@ export class PatientProfileComponent implements OnInit {
         },
         error: (err) => {
           console.log(err);
-
+          this.notificationsService.showError("An error occurred");
         },
       })
     });
