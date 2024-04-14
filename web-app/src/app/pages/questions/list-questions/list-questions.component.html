@@ -9,6 +9,7 @@
     @for (question of questions; track question.id; let i = $index) {
     <div class="card">
       <div class="card-header">
+        <span>{{ i + 1 }} -</span>
         <span>{{ question.description }}</span>
         <mat-slide-toggle color="primary" [checked]="question.enabled"
           (change)="toggleQuestionEnable($event.checked, i, question)">
@@ -32,65 +33,19 @@
 
 
 <style>
-  main {
-    padding: 5px;
-  }
-
   header {
     display: flex;
     justify-content: space-between;
     align-items: center;
   }
 
-  section {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-  }
-
-  .card {
-    background-color: #ffffff;
-    border: 1px solid #cccccc;
-    border-radius: 8px;
-    padding: 20px;
-    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
-    width: calc(50% - 10px);
-    height: 200px;
-    overflow: hidden;
-  }
-
-  .card-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 10px;
-  }
-
   .card-header span {
-    font-size: large;
-  }
-
-  .answers-list {
-    list-style-type: none;
-    padding: 0;
-  }
-
-  .answer-item {
-    margin-bottom: 10px;
-  }
-
-  .answer-text {
-    font-size: 16px;
-    color: #333333;
+    margin-right: 10px;
   }
 
   @media (max-width: 768px) {
     section {
       flex-direction: column;
-    }
-
-    .card {
-      width: 100%;
     }
   }
 </style>

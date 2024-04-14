@@ -1,1 +1,10 @@
-<p>relaxation-guide works!</p>
+<main>
+  <h2>Relaxation Guides</h2>
+  @for (item of relaxationGuides; track $index) {
+  <div class="card">
+    <p><strong>{{ item.title }}</strong></p>
+    <span> {{ item.description }}</span>
+    <a [href]="item.videoUrl" target="_blank"> Click here to watch the video.</a>
+  </div>
+  }
+</main>

@@ -1,4 +1,5 @@
 <main>
+  <h2>Advices</h2>
   <div class="card">
     <p class="card-header">
       Your priority is considered <strong>{{ patient.priority == 1 ? 'Low' : this.patient.priority == 2 ? 'Medium' :
@@ -12,7 +13,7 @@
   <section class="advices">
     @for (advice of filteredAdvices; track $index) {
     <div class="card">
-      <p class="card-header">
+      <p>
         <strong>{{advice.title }}</strong>.
       </p>
       <p>
@@ -25,48 +26,17 @@
 </main>
 
 <style>
-  main {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-    margin-bottom: 10px;
-  }
-
   .advices {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
     align-items: center;
     gap: 10px;
-
-    .card {
-      width: calc(50% - 10%);
-      height: 100%;
-    }
-  }
-
-  .card {
-    background-color: #ffffff;
-    border: 1px solid #cccccc;
-    border-radius: 8px;
-    padding: 20px;
-    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
-    overflow: hidden;
-    width: 80%;
-    height: 100%;
-    margin-top: 10px;
   }
 
   @media (max-width: 768px) {
     .advices {
       flex-direction: column;
-
-      .card {
-        width: 80%;
-      }
     }
-
   }
 </style>
