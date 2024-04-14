@@ -32,6 +32,7 @@ public class Patient : Entity
   public DateTime DateSubmittedForm { get; private set; }
   public Priority Priority { get; private set; }
   public SafetyPlan SafetyPlan { get; set; } = new();
+  public SelfCare SelfCare { get; set; } = new();
   public DateTime Appointment { get; set; }
   public bool IsScheduled { get; set; }
   private void SetPriority(IEnumerable<Question> _questionsToSum)

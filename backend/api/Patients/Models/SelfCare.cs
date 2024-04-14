@@ -13,4 +13,7 @@ public class SelfCare : Entity
     public string PositivePoints { get; set; } = string.Empty;
     public string PointsToImprove { get; set; } = string.Empty;
     public string Strategies { get; set; } = string.Empty;
+    public string PatientEmail { get; set; } = string.Empty;
+    public int PatientId { get; set; }
+    public Patient Patient { get; set; } = null!;
 }
