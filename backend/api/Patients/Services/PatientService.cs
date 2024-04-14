@@ -17,6 +17,7 @@ public interface IPatientService
     Task<Response> UpdateSafetyPlanAsync(string patientEmail, EditSafetyPlan request);
     Task<Response> ScheduleAppointmentAsync(string patientEmail, ScheduleAppointmentRequest request);
     Task<Response> UpdateSelfCareAsync(string patientEmail, UpdateSelfCareRequest request);
+    Task<Response> GetSelfCareByEmailAsync(string email);
 }
 public class PatientService(
     DataContext context,
@@ -221,7 +222,32 @@ public class PatientService(
         }
     }
 
-    public Task<Response> UpdateSelfCareAsync(string patientEmail, UpdateSelfCareRequest request)
+    public async Task<Response> UpdateSelfCareAsync(string patientEmail, UpdateSelfCareRequest request)
+    {
+        var selfCare = await _context.SelfCares
+                                    .FirstOrDefaultAsync(x => x.PatientEmail.ToLower() == patientEmail.ToLower());
+        if (selfCare is null)
+            return new Response("Self care not found!", false, 404);
+
+        selfCare.Update(request.PositivePoints,
+                        request.PointsToImprove,
+                        request.Strategies,
+                        patientEmail);
+
+        try
+        {
+            _context.SelfCares.Update(selfCare);
+            await _context.SaveChangesAsync();
+            return new Response("Ok");
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(ex.Message);
+            return new Response($"Error:{ex.Message}", false, 500);
+        }
+    }
+
+    public Task<Response> GetSelfCareByEmailAsync(string email)
     {
         throw new NotImplementedException();
     }

@@ -51,15 +51,34 @@ public static class PatientApi
 
         group.MapGet("/get-by-id/{id}", async (int id, IPatientService patientService) =>
        {
-           var patients = await patientService.GetByIdAsync(id);
-           return Results.Ok(patients);
+           var patient = await patientService.GetByIdAsync(id);
+           return Results.Ok(patient);
        });
 
         group.MapGet("/get-safety-plan-by-email/{email}", async (string email, IPatientService patientService) =>
        {
-           var patients = await patientService.GetSafetyPlanByEmailAsync(email);
-           return Results.Ok(patients);
+           var safetyPlan = await patientService.GetSafetyPlanByEmailAsync(email);
+           return Results.Ok(safetyPlan);
        });
+
+        group.MapGet("/get-self-care-by-email/{email}", async (string email, IPatientService patientService) =>
+       {
+           var selfCare = await patientService.GetSelfCareByEmailAsync(email);
+           return Results.Ok(selfCare);
+       });
+
+
+        group.MapPut("/update-self-care/{email}", async (string email,
+                                                           IPatientService patientService,
+                                                           [FromBody] UpdateSelfCareRequest request) =>
+        {
+            var response = await patientService.UpdateSelfCareAsync(email, request);
+            return response.Data is 404 ?
+            Results.NotFound(response.Message) :
+            response.Data is 500 ?
+            Results.BadRequest(response.Data) :
+            Results.Ok();
+        });
 
         return group;
     }

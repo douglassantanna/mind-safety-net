@@ -3,11 +3,15 @@ using api.Shared;
 namespace api.Patients.Models;
 public class SelfCare : Entity
 {
-    public void Update(string positivePoints, string pointsToImprove, string strategies)
+    public void Update(string positivePoints,
+                       string pointsToImprove,
+                       string strategies,
+                       string patientEmail)
     {
         PositivePoints = positivePoints;
         PointsToImprove = pointsToImprove;
         Strategies = strategies;
+        PatientEmail = patientEmail;
     }
 
     public string PositivePoints { get; set; } = string.Empty;
