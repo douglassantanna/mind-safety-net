@@ -43,6 +43,12 @@ export interface UpdateSafetyPlan {
   professionalSupport: string;
 }
 
+export interface UpdateSelfCare {
+  positivePoints: string;
+  pointsToImprove: string;
+  strategies: string;
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -72,5 +78,13 @@ export class PatientService {
 
   scheduleAppointment(patientEmail: string, appointmentDate: any): Observable<CustomResponse> {
     return this.http.put<CustomResponse>(`${url}/schedule-appointment/${patientEmail}`, appointmentDate);
+  }
+
+  getSelfCareByEmail(patientEmail: string): Observable<CustomResponse> {
+    return this.http.get<CustomResponse>(`${url}/get-self-care-by-email/${patientEmail}`);
+  }
+
+  updateSelfCare(request: UpdateSelfCare, patientEmail: string): Observable<CustomResponse> {
+    return this.http.put<CustomResponse>(`${url}/update-self-care/${patientEmail}`, request);
   }
 }

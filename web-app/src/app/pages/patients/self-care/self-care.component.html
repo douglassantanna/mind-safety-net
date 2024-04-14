@@ -1,1 +1,46 @@
-<p>self-care works!</p>
+<main>
+  <h2>My Self Care</h2>
+
+  <form [formGroup]="selfCareForm">
+    <div>
+      <mat-label>Write 10 positives points about yourself.</mat-label>
+      <mat-form-field appearance="outline">
+        <textarea matInput formControlName="positivePoints" maxlength="1000" placeholder="Description..."></textarea>
+      </mat-form-field>
+    </div>
+
+    <div>
+      <mat-label>Write 3 points that you can improve about you.</mat-label>
+      <mat-form-field appearance="outline">
+        <textarea matInput formControlName="pointsToImprove" maxlength="1000" placeholder="Description..."></textarea>
+      </mat-form-field>
+    </div>
+
+    <div>
+      <mat-label>What strategies will you use to improve those points you listed?</mat-label>
+      <mat-form-field appearance="outline">
+        <textarea matInput formControlName="strategies" maxlength="1000" placeholder="Description..."></textarea>
+      </mat-form-field>
+    </div>
+
+    <app-submit-button [text]="'Save'" [loading]="!loading" [disabled]="selfCareForm.invalid"
+      (click)="submitPost()"></app-submit-button>
+  </form>
+</main>
+
+<style>
+  form {
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  mat-form-field {
+    width: 100%;
+  }
+
+  mat-label {
+    font-size: 20px;
+  }
+</style>
