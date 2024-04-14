@@ -16,6 +16,7 @@ public interface IPatientService
     Task<Response> GetSafetyPlanByEmailAsync(string patientEmail);
     Task<Response> UpdateSafetyPlanAsync(string patientEmail, EditSafetyPlan request);
     Task<Response> ScheduleAppointmentAsync(string patientEmail, ScheduleAppointmentRequest request);
+    Task<Response> UpdateSelfCareAsync(string patientEmail, UpdateSelfCareRequest request);
 }
 public class PatientService(
     DataContext context,
@@ -218,5 +219,10 @@ public class PatientService(
             Console.WriteLine(ex.Message);
             return new Response($"Error:{ex.Message}", false, 500);
         }
+    }
+
+    public Task<Response> UpdateSelfCareAsync(string patientEmail, UpdateSelfCareRequest request)
+    {
+        throw new NotImplementedException();
     }
 }
