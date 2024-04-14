@@ -17,7 +17,7 @@ public interface IPatientService
     Task<Response> UpdateSafetyPlanAsync(string patientEmail, EditSafetyPlan request);
     Task<Response> ScheduleAppointmentAsync(string patientEmail, ScheduleAppointmentRequest request);
     Task<Response> UpdateSelfCareAsync(string patientEmail, UpdateSelfCareRequest request);
-    Task<Response> GetSelfCareByEmailAsync(string email);
+    Task<Response> GetSelfCareByEmailAsync(string patientEmail);
 }
 public class PatientService(
     DataContext context,
@@ -182,7 +182,7 @@ public class PatientService(
                                         .AsNoTracking()
                                         .FirstOrDefaultAsync(p => p.PatientEmail.ToLower() == patientEmail.ToLower());
 
-            if (safetyPlan is null) return new Response("Patient not found!", false, 404);
+            if (safetyPlan is null) return new Response("Safety plan not found!", false, 404);
 
             ViewSafetyPlan safetyPlanDto = new(safetyPlan.Id,
                                                safetyPlan.WarningSigns,
@@ -247,8 +247,27 @@ public class PatientService(
         }
     }
 
-    public Task<Response> GetSelfCareByEmailAsync(string email)
+    public async Task<Response> GetSelfCareByEmailAsync(string patientEmail)
     {
-        throw new NotImplementedException();
+        try
+        {
+            var selfCare = await _context.SelfCares
+                                        .AsNoTracking()
+                                        .FirstOrDefaultAsync(p => p.PatientEmail.ToLower() == patientEmail.ToLower());
+
+            if (selfCare is null) return new Response("Self care not found!", false, 404);
+
+            ViewSelfCare selfCareDto = new(selfCare.Id,
+                                             selfCare.PositivePoints,
+                                             selfCare.PointsToImprove,
+                                             selfCare.Strategies); ;
+
+            return new Response("", true, selfCareDto);
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error: {0}", ex.Message);
+            return new Response($"Error: {ex.Message}", false, 500);
+        }
     }
 }

@@ -27,3 +27,8 @@ public record ViewSafetyPlan(int SafetyPlanId,
                              string ReasonsForLiving,
                              string SituationFever,
                              string ProfessionalSupport);
+
+public record ViewSelfCare(int SafetyPlanId,
+                           string PositivePoints,
+                           string PointsToImprove,
+                           string Strategies);
