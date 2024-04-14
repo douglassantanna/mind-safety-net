@@ -20,6 +20,7 @@ public class Patient : Entity
     _questions.AddRange(questions);
     SetPriority(_questions);
     SafetyPlan.PatientEmail = email;
+    SelfCare.PatientEmail = email;
   }
   protected Patient()
   { }
