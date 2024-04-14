@@ -12,6 +12,7 @@ import { roleGuard } from './core/guards/role.guard';
 import { PatientAdvicesComponent } from './pages/patients/patient-advices/patient-advices.component';
 import { SafetyPlanComponent } from './pages/patients/safety-plan/safety-plan.component';
 import { RelaxationGuideComponent } from './pages/patients/relaxation-guide/relaxation-guide.component';
+import { HelpingCenterComponent } from './pages/patients/helping-center/helping-center.component';
 
 export const routes: Routes = [
   { path: '', pathMatch: 'full', component: PatientFormComponent },
@@ -24,4 +25,5 @@ export const routes: Routes = [
   { path: 'patients/advices', canActivate: [authGuard, roleGuard], data: { roles: ['patient', 'admin', 'manager'] }, component: PatientAdvicesComponent },
   { path: 'patients/safety-plan', canActivate: [authGuard, roleGuard], data: { roles: ['patient', 'admin', 'manager'] }, component: SafetyPlanComponent },
   { path: 'patients/relaxation-guide', canActivate: [authGuard, roleGuard], data: { roles: ['patient', 'admin', 'manager'] }, component: RelaxationGuideComponent },
+  { path: 'patients/helping-centers', canActivate: [authGuard, roleGuard], data: { roles: ['patient', 'admin', 'manager'] }, component: HelpingCenterComponent },
 ];
