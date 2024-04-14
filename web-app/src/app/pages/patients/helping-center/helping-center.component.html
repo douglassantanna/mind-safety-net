@@ -1,1 +1,11 @@
-<p>helping-center works!</p>
+<main>
+  <h2>Relaxation Guides</h2>
+  @for (item of helpingCenters; track $index) {
+  <div class="card">
+    <p><strong>Name: </strong>{{ item.name }}</p>
+    <p><strong>Location: </strong>{{ item.location }}</p>
+    <p><strong>Email: </strong>{{ item.email }}</p>
+    <p><strong>Phone number: </strong>{{ item.phoneNumber }}</p>
+  </div>
+  }
+</main>
