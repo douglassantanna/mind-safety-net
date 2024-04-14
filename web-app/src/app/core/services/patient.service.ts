@@ -33,6 +33,7 @@ export interface ViewPatientProfile {
   dateSubmittedForm: Date;
   isScheduled: boolean;
   appointment: Date;
+  safetyPlan: UpdateSafetyPlan;
 }
 
 export interface UpdateSafetyPlan {

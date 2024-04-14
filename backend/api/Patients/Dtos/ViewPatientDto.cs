@@ -18,7 +18,8 @@ public record ViewPatientProfileDTO(int Id,
                                     Priority Priority,
                                     bool IsScheduled,
                                     DateTime Appointment,
-                                    IEnumerable<ViewQuestions> Questions);
+                                    IEnumerable<ViewQuestions> Questions,
+                                    ViewSafetyPlan SafetyPlan);
 public record CreateQuestionsDTO(int QuestionId, int AnswerId, int AnswerValue);
 
 public record ViewSafetyPlan(int SafetyPlanId,

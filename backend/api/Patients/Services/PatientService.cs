@@ -124,6 +124,19 @@ public class PatientService(
 
             if (patient is null) return new Response("Patient not found!", false, 404);
 
+            var safetyPlan = await _context.SafetyPlans
+                                         .AsNoTracking()
+                                         .FirstOrDefaultAsync(p => p.PatientEmail.ToLower() == patient.Email.ToLower());
+
+            if (safetyPlan is null) return new Response("Safety plan not found!", false, 404);
+
+            ViewSafetyPlan safetyPlanDto = new(safetyPlan.Id,
+                                               safetyPlan.WarningSigns,
+                                               safetyPlan.Distractions,
+                                               safetyPlan.ReasonsForLiving,
+                                               safetyPlan.SituationFever,
+                                               safetyPlan.ProfessionalSupport);
+
             IEnumerable<ViewQuestions> questionsDto = patient.Questions.Select(q => new ViewQuestions(
                                                             q.Id,
                                                             q.Description,
@@ -142,7 +155,8 @@ public class PatientService(
                 patient.Priority,
                 patient.IsScheduled,
                 patient.Appointment,
-                questionsDto);
+                questionsDto,
+                safetyPlanDto);
 
             return new Response("", true, patientDTO);
         }
@@ -189,7 +203,7 @@ public class PatientService(
                                                safetyPlan.Distractions,
                                                safetyPlan.ReasonsForLiving,
                                                safetyPlan.SituationFever,
-                                               safetyPlan.ProfessionalSupport); ;
+                                               safetyPlan.ProfessionalSupport);
 
             return new Response("", true, safetyPlanDto);
         }

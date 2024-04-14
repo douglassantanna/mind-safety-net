@@ -32,7 +32,8 @@
     <strong>Priority:</strong> <app-patient-priority [priority]="patient.priority"></app-patient-priority>
   </div>
 
-
+  <div class="divider"></div>
+  <h2>Questions</h2>
   @for (question of patient.questions; track $index) {
   <div class="card">
     <div class="card-header">
@@ -48,6 +49,14 @@
     </ul>
   </div>
   }
+
+  <div class="divider"></div>
+  <h2>Safety Plan</h2>
+  <p><strong>1- My warning signs: </strong>{{ patient?.safetyPlan?.warningSigns }} </p>
+  <p><strong>2- My distractions: </strong>{{ patient?.safetyPlan?.distractions }} </p>
+  <p><strong>3- My reasons for living: </strong>{{ patient?.safetyPlan?.reasonsForLiving }} </p>
+  <p><strong>4- Making my situation safer: </strong>{{ patient?.safetyPlan?.situationFever }} </p>
+  <p><strong>5- Professional support: </strong>{{ patient?.safetyPlan?.professionalSupport }} </p>
 </main>
 
 <style>
@@ -66,6 +75,11 @@
     span {
       font-size: x-large;
     }
+  }
+
+  .divider {
+    border-bottom: 1px solid gainsboro;
+    width: 100%;
   }
 
   .patient-priority {
