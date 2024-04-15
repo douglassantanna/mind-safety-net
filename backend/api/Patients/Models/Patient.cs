@@ -48,8 +48,8 @@ public class Patient : Entity
     Priority = sum switch
     {
       0 => Priority.Undefined,
-      int n when n < 25 => Priority.Low,
-      int n when n < 50 => Priority.Medium,
+      int n when n > 0 || n < 70 => Priority.Low,
+      int n when n > 70 || n < 80 => Priority.Medium,
       _ => Priority.High
     };
   }

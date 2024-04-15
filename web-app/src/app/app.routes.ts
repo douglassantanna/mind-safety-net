@@ -21,7 +21,7 @@ export const routes: Routes = [
   { path: 'questions/create', canActivate: [authGuard, roleGuard], data: { roles: ['admin', 'manager'] }, component: CreateQuestionComponent },
   { path: 'questions/list', canActivate: [authGuard, roleGuard], data: { roles: ['admin', 'manager'] }, component: ListQuestionsComponent },
   { path: 'patients/list', canActivate: [authGuard, roleGuard], data: { roles: ['patient', 'admin', 'manager'] }, component: ListPatientsComponent },
-  { path: 'patients/profile/:id', canActivate: [authGuard, roleGuard], data: { roles: ['patient', 'admin', 'manager'] }, component: PatientProfileComponent },
+  { path: 'patients/profile/:email', canActivate: [authGuard, roleGuard], data: { roles: ['patient', 'admin', 'manager'] }, component: PatientProfileComponent },
   { path: 'patients/advices', canActivate: [authGuard, roleGuard], data: { roles: ['patient', 'admin', 'manager'] }, component: PatientAdvicesComponent },
   { path: 'patients/safety-plan', canActivate: [authGuard, roleGuard], data: { roles: ['patient', 'admin', 'manager'] }, component: SafetyPlanComponent },
   { path: 'patients/relaxation-guide', canActivate: [authGuard, roleGuard], data: { roles: ['patient', 'admin', 'manager'] }, component: RelaxationGuideComponent },

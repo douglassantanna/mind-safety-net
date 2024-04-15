@@ -26,8 +26,8 @@ export class PatientProfileComponent implements OnInit {
   }
   ngOnInit(): void {
     this.route.params.subscribe(params => {
-      const id = params['id'];
-      this.patientService.getById(id).subscribe({
+      const email = params['email'];
+      this.patientService.getByEmail(email).subscribe({
         next: (response) => {
           this.patient = response.data;
         },

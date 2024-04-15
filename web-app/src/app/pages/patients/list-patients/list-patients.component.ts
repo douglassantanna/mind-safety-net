@@ -46,7 +46,7 @@ export class ListPatientsComponent implements OnInit {
     })
   }
   patientDetails(patient: ViewPatient) {
-    this.router.navigateByUrl(`/patients/profile/${patient.id}`);
+    this.router.navigateByUrl(`/patients/profile/${patient.email}`);
   }
 
   scheduleAppointment(patient: ViewPatient) {

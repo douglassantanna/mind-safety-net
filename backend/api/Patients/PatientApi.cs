@@ -49,9 +49,9 @@ public static class PatientApi
            return Results.Ok(patients);
        });
 
-        group.MapGet("/get-by-id/{id}", async (int id, IPatientService patientService) =>
+        group.MapGet("/get-by-email/{email}", async (string email, IPatientService patientService) =>
        {
-           var patient = await patientService.GetByIdAsync(id);
+           var patient = await patientService.GetByEmailAsync(email);
            return Results.Ok(patient);
        });
 

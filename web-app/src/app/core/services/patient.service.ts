@@ -69,8 +69,8 @@ export class PatientService {
     return this.http.get<ViewPatient[]>(`${url}/list`);
   }
 
-  getById(patientId: number): Observable<CustomResponse> {
-    return this.http.get<CustomResponse>(`${url}/get-by-id/${patientId}`);
+  getByEmail(patientEmail: string): Observable<CustomResponse> {
+    return this.http.get<CustomResponse>(`${url}/get-by-email/${patientEmail}`);
   }
 
   getSafetyPlanByEmail(patientEmail: string): Observable<CustomResponse> {

@@ -12,7 +12,7 @@ public interface IPatientService
 {
     Task<Response> CreateAsync(CreatePatientRequest request);
     Task<IEnumerable<ViewPatientDTO>> ListAsync(CancellationToken ct);
-    Task<Response> GetByIdAsync(int id);
+    Task<Response> GetByEmailAsync(string email);
     Task<Response> GetSafetyPlanByEmailAsync(string patientEmail);
     Task<Response> UpdateSafetyPlanAsync(string patientEmail, EditSafetyPlan request);
     Task<Response> ScheduleAppointmentAsync(string patientEmail, ScheduleAppointmentRequest request);
@@ -112,7 +112,7 @@ public class PatientService(
         }
     }
 
-    public async Task<Response> GetByIdAsync(int id)
+    public async Task<Response> GetByEmailAsync(string email)
     {
         try
         {
@@ -121,7 +121,7 @@ public class PatientService(
                                         .Include(x => x.SafetyPlan)
                                         .Include(x => x.Questions)
                                             .ThenInclude(x => x.Answers)
-                                        .FirstOrDefaultAsync(p => p.Id == id);
+                                        .FirstOrDefaultAsync(p => p.Email == email);
 
             if (patient is null) return new Response("Patient not found!", false, 404);
 
