@@ -38,6 +38,12 @@ public static class PatientApi
            return Results.Ok(users);
        });
 
+        group.MapDelete("/delete/{id}", (int id, IUserService userService) =>
+        {
+            var response = userService.Delete(id);
+            return Results.Ok();
+        });
+
         return group;
     }
 }

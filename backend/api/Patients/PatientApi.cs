@@ -86,7 +86,6 @@ public static class PatientApi
             return Results.Ok();
         });
 
-
         return group;
     }
 }

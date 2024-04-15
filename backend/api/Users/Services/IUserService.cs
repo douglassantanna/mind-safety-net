@@ -9,6 +9,7 @@ namespace api.Users.Services;
 public interface IUserService
 {
     Task<Response> CreateAsync(CreateUserRequest request);
+    Response Delete(int id);
     Task<Response> EditAsync(EditUserRequest request);
     Task<List<ViewUserDTO>> ListAllAsync(CancellationToken ct);
     Task<bool> UserExists(string email);
@@ -76,4 +77,21 @@ public class UserService(DataContext context,
                                                                                                                                                user.Active)).ToListAsync(ct);
 
     public async Task<bool> UserExists(string email) => await _context.Users.AnyAsync(u => u.Email == email);
+    public Response Delete(int id)
+    {
+        var user = _context.Users.FirstOrDefault(q => q.Id == id);
+        if (user is null)
+            return new Response("User not found.", false);
+
+        try
+        {
+            _context.Users.Remove(user);
+            _context.SaveChanges();
+            return new Response("Deleted");
+        }
+        catch (System.Exception ex)
+        {
+            return new Response(ex.Message);
+        }
+    }
 }
