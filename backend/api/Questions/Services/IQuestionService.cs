@@ -11,7 +11,7 @@ public interface IQuestionService
     Task<Response> CreateAsync(CreateQuestionRequest request);
     Task<IEnumerable<ViewQuestionDTO>> ListAsync();
     Task<Response> SetEnableStatusAsync(SetQuestionEnableStatusRequest request);
-    Response DeleteQuestion(int id);
+    Response Delete(int id);
 }
 public class QuestionService(
     DataContext context,
@@ -44,7 +44,7 @@ public class QuestionService(
         return new Response("", true, newQuestion.Id);
     }
 
-    public Response DeleteQuestion(int id)
+    public Response Delete(int id)
     {
         var question = _context.Questions.Include(x => x.Answers).FirstOrDefault(q => q.Id == id);
         if (question is null)

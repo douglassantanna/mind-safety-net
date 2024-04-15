@@ -80,6 +80,13 @@ public static class PatientApi
             Results.Ok();
         });
 
+        group.MapDelete("/delete/{id}", (int id, IPatientService patientService) =>
+        {
+            var response = patientService.Delete(id);
+            return Results.Ok();
+        });
+
+
         return group;
     }
 }

@@ -18,6 +18,7 @@ public interface IPatientService
     Task<Response> ScheduleAppointmentAsync(string patientEmail, ScheduleAppointmentRequest request);
     Task<Response> UpdateSelfCareAsync(string patientEmail, UpdateSelfCareRequest request);
     Task<Response> GetSelfCareByEmailAsync(string patientEmail);
+    Response Delete(int id);
 }
 public class PatientService(
     DataContext context,
@@ -282,6 +283,28 @@ public class PatientService(
         {
             Console.WriteLine($"Error: {0}", ex.Message);
             return new Response($"Error: {ex.Message}", false, 500);
+        }
+    }
+
+    public Response Delete(int id)
+    {
+        var patient = _context.Patients
+                              .Include(x => x.Questions)
+                                .ThenInclude(x => x.Answers)
+                              .Include(x => x.SelectedAnswerIds)
+                              .FirstOrDefault(q => q.Id == id);
+        if (patient is null)
+            return new Response("Patient not found.", false);
+
+        try
+        {
+            _context.Patients.Remove(patient);
+            _context.SaveChanges();
+            return new Response("Deleted");
+        }
+        catch (System.Exception ex)
+        {
+            return new Response(ex.Message);
         }
     }
 }

@@ -24,9 +24,9 @@ public static class QuestionApi
              Results.UnprocessableEntity(response.Data);
         });
 
-        group.MapPost("/delete/{id}", (int id, IQuestionService questionService) =>
+        group.MapDelete("/delete/{id}", (int id, IQuestionService questionService) =>
         {
-            var response = questionService.DeleteQuestion(id);
+            var response = questionService.Delete(id);
             return Results.Ok();
         });
 
