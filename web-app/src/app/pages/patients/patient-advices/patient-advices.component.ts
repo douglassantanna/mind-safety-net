@@ -17,63 +17,27 @@ const advicesArray: Advice[] = [
     priority: Priority.Low,
     messages: [
       {
-        title: 'Example 1',
-        description: 'The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested. Sections 1.10.32 and 1.10.33 from "de Finibus Bonorum et Malorum" by Cicero are also reproduced in their exact original form, accompanied by English versions from the 1914 translation by H. Rackham.'
-      },
-      {
-        title: 'Example 2',
-        description: 'The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested. Sections 1.10.32 and 1.10.33 from "de Finibus Bonorum et Malorum" by Cicero are also reproduced in their exact original form, accompanied by English versions from the 1914 translation by H. Rackham.'
-      },
-      {
-        title: 'Example 3',
-        description: 'The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested. Sections 1.10.32 and 1.10.33 from "de Finibus Bonorum et Malorum" by Cicero are also reproduced in their exact original form, accompanied by English versions from the 1914 translation by H. Rackham.'
-      },
-      {
-        title: 'Example 4',
-        description: 'The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested. Sections 1.10.32 and 1.10.33 from "de Finibus Bonorum et Malorum" by Cicero are also reproduced in their exact original form, accompanied by English versions from the 1914 translation by H. Rackham.'
-      },
+        title: 'Low Level Scores:',
+        description: 'Low level scores typically indicate mild or minimal symptoms of mental health issues. Individuals with low scores may experience occasional stress or mood fluctuations but can generally manage daily activities without significant impairment.'
+      }
     ]
   },
   {
     priority: Priority.Medium,
     messages: [
       {
-        title: 'Example 1',
-        description: 'The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested. Sections 1.10.32 and 1.10.33 from "de Finibus Bonorum et Malorum" by Cicero are also reproduced in their exact original form, accompanied by English versions from the 1914 translation by H. Rackham.'
-      },
-      {
-        title: 'Example 2',
-        description: 'The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested. Sections 1.10.32 and 1.10.33 from "de Finibus Bonorum et Malorum" by Cicero are also reproduced in their exact original form, accompanied by English versions from the 1914 translation by H. Rackham.'
-      },
-      {
-        title: 'Example 3',
-        description: 'The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested. Sections 1.10.32 and 1.10.33 from "de Finibus Bonorum et Malorum" by Cicero are also reproduced in their exact original form, accompanied by English versions from the 1914 translation by H. Rackham.'
-      },
-      {
-        title: 'Example 4',
-        description: 'The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested. Sections 1.10.32 and 1.10.33 from "de Finibus Bonorum et Malorum" by Cicero are also reproduced in their exact original form, accompanied by English versions from the 1914 translation by H. Rackham.'
-      },
+        title: 'Medium Level Scores:',
+        description: 'Medium level scores suggest moderate symptoms of mental health issues. Individuals in this range may experience more persistent symptoms such as anxiety, depression, or difficulty coping with stressors, which may interfere with daily functioning to some extent.'
+      }
     ]
   },
   {
     priority: Priority.High,
     messages: [
       {
-        title: 'Example 1',
-        description: 'The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested. Sections 1.10.32 and 1.10.33 from "de Finibus Bonorum et Malorum" by Cicero are also reproduced in their exact original form, accompanied by English versions from the 1914 translation by H. Rackham.'
-      },
-      {
-        title: 'Example 2',
-        description: 'The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested. Sections 1.10.32 and 1.10.33 from "de Finibus Bonorum et Malorum" by Cicero are also reproduced in their exact original form, accompanied by English versions from the 1914 translation by H. Rackham.'
-      },
-      {
-        title: 'Example 3',
-        description: 'The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested. Sections 1.10.32 and 1.10.33 from "de Finibus Bonorum et Malorum" by Cicero are also reproduced in their exact original form, accompanied by English versions from the 1914 translation by H. Rackham.'
-      },
-      {
-        title: 'Example 4',
-        description: 'The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested. Sections 1.10.32 and 1.10.33 from "de Finibus Bonorum et Malorum" by Cicero are also reproduced in their exact original form, accompanied by English versions from the 1914 translation by H. Rackham.'
-      },
+        title: 'High Level Scores:',
+        description: 'High level scores indicate severe or intense symptoms of mental health issues. Individuals with high scores may experience significant impairment in daily functioning, such as severe depression, anxiety attacks, psychosis, or suicidal thoughts, requiring urgent professional intervention and support.'
+      }
     ]
   }
 ];

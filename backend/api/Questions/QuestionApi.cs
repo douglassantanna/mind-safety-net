@@ -24,6 +24,12 @@ public static class QuestionApi
              Results.UnprocessableEntity(response.Data);
         });
 
+        group.MapPost("/delete/{id}", (int id, IQuestionService questionService) =>
+        {
+            var response = questionService.DeleteQuestion(id);
+            return Results.Ok();
+        });
+
         group.MapPut("/set-enable-status", async (IQuestionService questionService,
                                                  [FromBody] SetQuestionEnableStatusRequest request) =>
         {

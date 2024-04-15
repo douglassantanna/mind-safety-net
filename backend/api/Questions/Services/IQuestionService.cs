@@ -11,6 +11,7 @@ public interface IQuestionService
     Task<Response> CreateAsync(CreateQuestionRequest request);
     Task<IEnumerable<ViewQuestionDTO>> ListAsync();
     Task<Response> SetEnableStatusAsync(SetQuestionEnableStatusRequest request);
+    Response DeleteQuestion(int id);
 }
 public class QuestionService(
     DataContext context,
@@ -41,6 +42,24 @@ public class QuestionService(
             Console.WriteLine($"Error: {0}", ex.Message);
         }
         return new Response("", true, newQuestion.Id);
+    }
+
+    public Response DeleteQuestion(int id)
+    {
+        var question = _context.Questions.Include(x => x.Answers).FirstOrDefault(q => q.Id == id);
+        if (question is null)
+            return new Response("Question not found.", false);
+
+        try
+        {
+            _context.Questions.Remove(question);
+            _context.SaveChanges();
+            return new Response("Deleted");
+        }
+        catch (System.Exception ex)
+        {
+            return new Response(ex.Message);
+        }
     }
 
     public async Task<IEnumerable<ViewQuestionDTO>> ListAsync()
